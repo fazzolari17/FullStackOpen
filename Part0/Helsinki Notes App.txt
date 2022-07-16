@@ -1,0 +1,21 @@
+title Helsinki Notes App
+#Initial page load 
+browser->server:  HTTPS GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-Notes
+browser->server:  HTTPS GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.js
+browser->server:  HTTPS GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.css
+Browser->Server: HTTPS GET : https://studies.cs.helsinki.fi/exampleapp/data.json
+Server-->Browser: data.json
+
+#Create note
+Browser->Server:  HTTPS POST https://studies.cs.helsinki.fi/exampleapp/new_note
+Browser->Server:  HTTPS GET https://studies.cs.helsinki.fi/exampleapp/new_note
+Server-->Browser: HTML 
+Server-->Browser: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->Browser: main.js
+Server-->Browser: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server:  HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server-->Browser: data.json

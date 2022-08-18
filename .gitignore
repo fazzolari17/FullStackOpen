@@ -2,3 +2,8 @@
 Part1/part1/node_modules
 /Part3/node_modules
 Part4/node_modules
+
+## Part3
+Part3/.env
+Part3/.eslintrc.js
+Part3/.eslintignore

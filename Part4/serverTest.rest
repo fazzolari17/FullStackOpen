@@ -1,0 +1,14 @@
+DELETE http://localhost:3003/api/blogs/62feb626f047d6b42ccfcdba
+###
+GET http://localhost:3003/api/blogs
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{ 
+  "title": "Giuseppe's Blog",
+  "author": "Giuseppe Fazzolari",
+  "url": "http://www.GiuseppeNeedsAJob.com",
+  "likes": 100
+}

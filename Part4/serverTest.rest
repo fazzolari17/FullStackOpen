@@ -1,14 +1,33 @@
-DELETE http://localhost:3003/api/blogs/62feb626f047d6b42ccfcdba
-###
+@serverID = 62fecf4962059070c6e9f851
+@putRequest = 62feb91bb34bd076883cea23
+### DELETE REQUEST
+DELETE http://localhost:3003/api/blogs/{{serverID}}
+
+### GET SPECIFIC ITEM FROM SERVER
+GET http://localhost:3003/api/blogs/{{serverID}}
+
+
+### GET ALL FROM SERVER REQUEST
 GET http://localhost:3003/api/blogs
 
-###
+### POST REQUEST
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 { 
-  "title": "Giuseppe's Blog",
+  "title": "Giuseppe's TESTER TWO",
   "author": "Giuseppe Fazzolari",
   "url": "http://www.GiuseppeNeedsAJob.com",
   "likes": 100
+}
+
+### PUT REQUEST 
+PUT   http://localhost:3003/api/blogs/{{putRequest}}
+Content-Type: application/json
+
+{ 
+  "title": "Giuseppe's UPDATED",
+  "author": "Giuseppe Fazzolari",
+  "url": "http://www.GiuseppeFazzolariHasGotAJob.com",
+  "likes": 100000
 }

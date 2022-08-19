@@ -1,5 +1,4 @@
-@serverID = 62fecf4962059070c6e9f851
-@putRequest = 62feb91bb34bd076883cea23
+@serverID = 62fed881657b572a70e91b23
 ### DELETE REQUEST
 DELETE http://localhost:3003/api/blogs/{{serverID}}
 
@@ -22,7 +21,7 @@ Content-Type: application/json
 }
 
 ### PUT REQUEST 
-PUT   http://localhost:3003/api/blogs/{{putRequest}}
+PUT   http://localhost:3003/api/blogs/{{serverID}}
 Content-Type: application/json
 
 { 

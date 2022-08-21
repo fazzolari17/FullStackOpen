@@ -36,8 +36,6 @@ const mostLikes = blogs => {
   return { author: maxValue[0][0], likes: maxValue[0][1] }
 }
 
-console.log(mostLikes(blogs))
-
 module.exports = {
   dummy,
   totalLikes,

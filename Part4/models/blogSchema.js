@@ -15,6 +15,9 @@ const blogSchema = new mongoose.Schema({
   },
   likes:{
     type: String,
+  },
+  edited: {
+    type: String
   }
 })
 

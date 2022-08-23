@@ -1,5 +1,3 @@
-const { blogs } = require('../tests/blogs')
-
 const dummy = () => {
   return 1
 }

@@ -14,7 +14,7 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 { 
-  "title": "Giuseppe's TESTER TWO",
+  "title": "Giuseppe's TESTER ONE",
   "author": "Giuseppe Fazzolari",
   "url": "http://www.GiuseppeNeedsAJob.com",
   "likes": 100

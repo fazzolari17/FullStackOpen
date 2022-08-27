@@ -1,0 +1,28 @@
+@serverID = 63078aa6739b2a6ef964f4e5
+@token = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMDgyNWEzNzM3M2I0NWUwM2Y2ZWVmNCIsImlhdCI6MTY2MTUxMzYxNiwiZXhwIjoxNjYxNTE3MjE2fQ.aqvN-urVxVQ1kCVgpfBahYhPipCJgk5hb25cko1-g04
+### DELETE REQUEST
+DELETE http://localhost:3003/api/users/{{serverID}}
+
+### GET SPECIFIC ITEM FROM SERVER
+GET http://localhost:3003/api/users/{{serverID}}
+
+
+### GET ALL FROM SERVER REQUEST
+GET http://localhost:3003/api/users
+Authorization: {{token}}
+
+### POST REQUEST
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{ 
+  "username": "root",
+  "name": "superuser",
+  "password": "superuserPassword"
+}
+
+
+###
+GET http://localhost:3003/api/users
+
+

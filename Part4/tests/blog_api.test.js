@@ -277,11 +277,11 @@ describe('deletion of a blog', () => {
   })
 })
 
-describe('backend functionality', () => {
+describe('adding blogs ', () => {
 
-  test('A valid blog can be added', async () => {
+  test('a status code of 401 is returned if blog is added without a token', async () => {
     const newBlog = {
-      title: 'Additional Blog',
+      title: 'A blog without a token',
       author: 'Post Request',
       url: 'https://reactpatterns.com/',
       likes: 10,
@@ -291,8 +291,7 @@ describe('backend functionality', () => {
     await api
       .post('/api/blogs')
       .send(newBlog)
-      .set('Authorization', `bearer ${token}`)
-      .expect(201)
+      .expect(401)
       .expect('Content-Type', /application\/json/)
 
     const response = await api
@@ -301,11 +300,41 @@ describe('backend functionality', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    const title = response.body.map(r => r.title)
+    expect(response.body).toHaveLength(helper.initialblogs.length)
 
-    expect(response.body).toHaveLength(helper.initialblogs.length + 1)
-    expect(title).toContain('Additional Blog')
   })
+
+})
+test('A valid blog can be added', async () => {
+  const newBlog = {
+    title: 'Additional Blog',
+    author: 'Post Request',
+    url: 'https://reactpatterns.com/',
+    likes: 10,
+    userId: user.body.id
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .set('Authorization', `bearer ${token}`)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api
+    .get('/api/blogs')
+    .set('Authorization', `bearer ${token}`)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const title = response.body.map(r => r.title)
+
+  expect(response.body).toHaveLength(helper.initialblogs.length + 1)
+  expect(title).toContain('Additional Blog')
+})
+
+describe('backend functionality', () => {
+
 
   test('a blog can be deleted from the server', async () => {
     const newBlog = {

@@ -146,7 +146,7 @@ describe('check the fields of submitted blog', () => {
 
   test('blog added without likes, default likes to 0', async () => {
     const userInDb = await helper.usersInDb()
-    // console.log(userInDb)
+
     const userId = userInDb[0].id
 
     const newBlog = {
@@ -280,9 +280,6 @@ describe('deletion of a blog', () => {
 describe('backend functionality', () => {
 
   test('A valid blog can be added', async () => {
-    const userInDb = await helper.usersInDb()
-    const userId = userInDb[0].id
-
     const newBlog = {
       title: 'Additional Blog',
       author: 'Post Request',

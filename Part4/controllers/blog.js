@@ -11,7 +11,6 @@ blogRouter.get('/', async (request, response) => {
 // GET specific item from server by ID
 blogRouter.get('/:id', async (request, response) => {
   const blog = await Blog.findById(request.path.substring(1))
-  console.log('USER REQ', request.user, blog)
 
   if (blog === null) {
     response.status(404).send({

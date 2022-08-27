@@ -1,5 +1,5 @@
 const blogRouter = require('express').Router()
-const Blog = require('../models/blogSchema')
+const Blog = require('../models/blog')
 const User = require('../models/user')
 
 // GET all from server

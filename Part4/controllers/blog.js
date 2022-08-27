@@ -1,27 +1,42 @@
 const blogRouter = require('express').Router()
 const Blog = require('../models/blogSchema')
+const User = require('../models/user')
 
 // GET all from server
 blogRouter.get('/', async (request, response) => {
-  const blogs = await Blog.find({})
+  const blogs = await Blog.find({}).populate('user', 'username name')
   response.json(blogs)
 })
 
 // GET specific item from server by ID
 blogRouter.get('/:id', async (request, response) => {
-  const blogPost = await Blog.findById(request.params.id)
+  const blog = await Blog.findById(request.path.substring(1))
+  console.log('USER REQ', request.user, blog)
 
-  if (blogPost) {
-    response.json(blogPost)
-  } else {
-    response.status(404).end()
+  if (blog === null) {
+    response.status(404).send({
+      error: 'no such blogPost exists'
+    })
+  } else if (request.user === blog.user.toString()) {
+    response.status(200).send(blog)
   }
 
 })
 
 // DELETE item from server by ID
 blogRouter.delete('/:id', async (request, response) => {
-  await Blog.findByIdAndDelete(request.params.id)
+  const userId = request.user
+
+  const blog = await Blog.findById(request.params.id)
+  if (blog === null) {
+    return response.status(404).send({
+      error: 'no such blogPost exists'
+    })
+  } else if (userId === blog.user.toString()) {
+    await Blog.findByIdAndDelete(request.params.id)
+  } else if (userId !== blog.user.toString()) {
+    return response.status(401).json({ error: 'note can only be delete by the user that created it' })
+  }
   response.status(204).end()
 
 })
@@ -29,15 +44,29 @@ blogRouter.delete('/:id', async (request, response) => {
 // POST item to server
 blogRouter.post('/', async (request, response) => {
   const body = request.body
+  const userId = request.user
+
+  // const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  // if (!decodedToken.id) {
+  //   return response.status(401).json({ error: 'token missing or invalid' })
+  // }
+  // if (!userId) {
+  //   return response.status(401).end()
+  // }
+
+  const user = await User.findById(userId)
 
   const blog = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: !body.likes ? 0 : body.likes
+    likes: !body.likes ? 0 : body.likes,
+    user: user._id
   })
 
-  await blog.save()
+  const savedBlog = await blog.save()
+  user.blog = user.blog.concat(savedBlog._id)
+  await user.save()
 
   response.status(201).json(blog)
 

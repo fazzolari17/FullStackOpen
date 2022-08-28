@@ -1,5 +1,5 @@
 import './style.css'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
@@ -32,7 +32,7 @@ const App = () => {
     <Blog key={blog.id} blog={blog} />
   )
 
-  return (
+  return ( 
     <div>
       <h2>Blogs</h2>
       {errorMessage !== null && <ErrorMessage message={errorMessage}/>}
@@ -45,13 +45,13 @@ const App = () => {
           errorMessage={errorMessage}
           setBlogs={setBlogs}
         /> }
-        <BlogForm 
-          user={user}
-          setUser={setUser}
-          setNewBlog={setNewBlog}
-          newBlog={newBlog}
-          setBlogs={setBlogs}
-        />
+      <BlogForm 
+        user={user}
+        setUser={setUser}
+        setNewBlog={setNewBlog}
+        newBlog={newBlog}
+        setBlogs={setBlogs}
+      />
 
       { blogsMapped }
     </div>

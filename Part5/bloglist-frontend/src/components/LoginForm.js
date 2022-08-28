@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import loginService from '../services/login'
-import blogService from "../services/blogService"
+import blogService from '../services/blogService'
 
 function LoginForm({ setUser, setErrorMessage, user, setBlogs }) {
   const [ username, setUsername ] = useState('')
@@ -36,28 +36,28 @@ function LoginForm({ setUser, setErrorMessage, user, setBlogs }) {
 
   return (
     <>
-    <form onSubmit={handleLogin}>
-      <label>
-        username
-        <input 
-          type='text' 
-          name='username'
-          value={username}
-          onChange={e => setUsername(e.target.value)}></input>
-      </label>
-      <br />
-      <label>
-        password
-        <input 
-          type='password' 
-          name='password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        ></input>
-      </label>
-      <br/>
-      <button type='submit'>Login</button>
-    </form>
+      <form onSubmit={handleLogin}>
+        <label>
+          username
+          <input 
+            type='text' 
+            name='username'
+            value={username}
+            onChange={e => setUsername(e.target.value)}></input>
+        </label>
+        <br />
+        <label>
+          password
+          <input 
+            type='password' 
+            name='password'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          ></input>
+        </label>
+        <br/>
+        <button type='submit'>Login</button>
+      </form>
     </>
   )
 }

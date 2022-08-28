@@ -1,7 +1,5 @@
-@serverID = 630a253aade00cc419c66105
-@token =  bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMDgyNWEzNzM3M2I0NWUwM2Y2ZWVmNCIsImlhdCI6MTY2MTYzNzQ0NCwiZXhwIjoxNjYxNjQxMDQ0fQ.-BsbA84hrDeVmq1w00rwXnHOXQjTCCaE-HQ302GQeUo
-###
-@userID = 63078aa6739b2a6ef964f4e5
+@serverID = 630aee8c97cba3d40fea6044
+@token =  bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMGFhNzdkZGQ0NDY3ZWM1Mjc3OWI2NSIsImlhdCI6MTY2MTY5OTA2NiwiZXhwIjoxNjYxNzAyNjY2fQ.V_e0U0mzPQm-6FVAGacApdzDAJE_z2SmywJkns5jcac
 ### DELETE REQUEST
 DELETE http://localhost:3003/api/blogs/{{serverID}}
 # Content-Type: application/json
@@ -11,7 +9,6 @@ Authorization: {{token}}
 GET http://localhost:3003/api/blogs/{{serverID}}
 # Content-Type: application/json
 Authorization: {{token}}
-
 
 ### GET ALL FROM SERVER REQUEST
 GET http://localhost:3003/api/blogs
@@ -23,10 +20,10 @@ Content-Type: application/json
 Authorization: {{token}}
 
 { 
-  "title": "Root blog to DELETE",
+  "title": "Root blog to TWO",
   "author": "Root",
   "url": "http://www.GiuseppeNeedsAJob.com",
-  "userId": "630825a37373b45e03f6eef4"
+  "userId": "630aa5eae14aeff17cabea8a"
 }
 
 ### PUT REQUEST 

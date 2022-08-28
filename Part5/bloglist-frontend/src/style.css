@@ -1,0 +1,25 @@
+.logout-btn {
+  display: inline;
+}
+
+.userLoggedIn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.errorMsg{
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+  color: red;
+  border: 5px solid red;
+  border-radius: 10px;
+}
+
+.successMsg{
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+  color: green;
+  border: 5px solid green;
+  border-radius: 10px;
+}

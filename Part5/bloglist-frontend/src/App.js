@@ -9,23 +9,11 @@ import SuccessMessage from './components/SuccessMessage'
 
 const App = () => {
   const [ blogs, setBlogs ] = useState([])
-  const [ username, setUsername ] = useState('')
-  const [ password, setPassword ] = useState('')
   const [ user, setUser ] = useState(null)
   const [ errorMessage, setErrorMessage ] = useState(null)
   const [ newBlog, setNewBlog ] = useState({title: '', author: '', url: '', added: false})
 
-
-
-  // useEffect(() => {
-  //   blogService.getAll().then(blogsFromServer =>
-  //     setBlogs( blogsFromServer )
-  //   )  
-  //   console.log(user)
-  // }, [newBlog])
-
   useEffect(() => {
-    
     const loggedInUserJSON = localStorage.getItem('loggedInUser')
 
     if (loggedInUserJSON) {
@@ -49,28 +37,23 @@ const App = () => {
       <h2>Blogs</h2>
       {errorMessage !== null && <ErrorMessage message={errorMessage}/>}
       {newBlog.added && <SuccessMessage newBlog={newBlog}/>}
-      {user === null ?
+      {user === null &&
         <LoginForm 
-        setPassword={setPassword}
-        password={password}
-        setUsername={setUsername}
-        username={username}
-        setUser={setUser}
-        user={user}
-        setErrorMessage={setErrorMessage}
-        errorMessage={errorMessage}
-        setBlogs={setBlogs}
-        /> 
-        : <BlogForm 
-        user={user}
-        setUser={setUser}
-        setNewBlog={setNewBlog}
-        newBlog={newBlog}
-        setBlogs={setBlogs}
+          setUser={setUser}
+          user={user}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+          setBlogs={setBlogs}
+        /> }
+        <BlogForm 
+          user={user}
+          setUser={setUser}
+          setNewBlog={setNewBlog}
+          newBlog={newBlog}
+          setBlogs={setBlogs}
         />
-      }
 
-      {blogsMapped}
+      { blogsMapped }
     </div>
   )
 }

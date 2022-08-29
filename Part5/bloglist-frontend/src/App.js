@@ -51,7 +51,7 @@ const App = () => {
 
       {user !== null &&
       <div className="userLoggedIn"><p>{user.name} is logged in</p>
-        
+
         <button className="logout-btn" onClick={logout}>Logout</button>
       </div>}
 

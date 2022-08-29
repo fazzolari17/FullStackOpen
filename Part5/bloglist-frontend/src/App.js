@@ -6,13 +6,13 @@ import BlogForm from './components/BlogForm'
 import blogService from './services/blogService'
 import ErrorMessage from './components/ErrorMessage'
 import SuccessMessage from './components/SuccessMessage'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [ blogs, setBlogs ] = useState([])
   const [ user, setUser ] = useState(null)
   const [ errorMessage, setErrorMessage ] = useState(null)
   const [ newBlog, setNewBlog ] = useState({ title: '', author: '', url: '', added: false })
-
 
 
   useEffect(() => {
@@ -30,6 +30,13 @@ const App = () => {
     }
   }, [ newBlog ])
 
+  const logout = () => {
+    localStorage.removeItem('loggedInUser')
+    setUser(null)
+
+    setBlogs([])
+  }
+
   const blogsMappedFromServer = blogs.map(blog =>
     <Blog key={blog.id} blog={blog} user={user} setBlogs={setBlogs}/>
   )
@@ -41,23 +48,34 @@ const App = () => {
       <h2>Blogs</h2>
       {errorMessage !== null && <ErrorMessage message={errorMessage}/>}
       {newBlog.added && <SuccessMessage newBlog={newBlog}/>}
+
+      {user !== null &&
+      <div className="userLoggedIn"><p>{user.name} is logged in</p>
+        
+        <button className="logout-btn" onClick={logout}>Logout</button>
+      </div>}
+
       {user === null ?
-        <LoginForm
-          setUser={setUser}
-          user={user}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
-          setBlogs={setBlogs}
-        />
+        <Togglable buttonLabel={'Login'}>
+          <LoginForm
+            setUser={setUser}
+            user={user}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
+            setBlogs={setBlogs}
+          />
+        </Togglable>
 
         :
-        <BlogForm
-          user={user}
-          setUser={setUser}
-          setNewBlog={setNewBlog}
-          newBlog={newBlog}
-          setBlogs={setBlogs}
-        />}
+        <Togglable buttonLabel={'New Blog'}>
+          <BlogForm
+            user={user}
+            setUser={setUser}
+            setNewBlog={setNewBlog}
+            newBlog={newBlog}
+            setBlogs={setBlogs}
+          />
+        </Togglable>}
 
       { sortedByLikes }
     </div>

@@ -50,7 +50,7 @@ const Blog = ({ blog, user, setBlogs }) => {
 
       <div style={Object.assign(showWhenVisible, blogStyle)}>
         {blog.title}
-        {blog.author} 
+        {blog.author}
         <div>
           <button onClick={() => setVisible(false)}>Hide</button>
         </div><br/>
@@ -60,7 +60,7 @@ const Blog = ({ blog, user, setBlogs }) => {
         <br/>
         {blog.user.name}
 
-        
+
 
         <div>
           <button onClick={removeBlog}>remove</button>

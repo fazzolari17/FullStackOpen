@@ -1,11 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import blogService from '../services/blogService'
 
-function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
-  const [ visible, setVisible ] = useState(false)
-
-  const hideWhenVisible = { display: visible ? 'none' : '' }
-  const showWhenVisible = { display: visible ? '' : 'none' }
+function BlogForm({ setNewBlog, newBlog }) {
 
   const addBlog = (event) => {
     event.preventDefault()
@@ -13,8 +9,6 @@ function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
 
     blogService.create(newBlog)
     setNewBlog({ ...newBlog, added: true })
-
-    setVisible(false)
 
     setTimeout(() => {
       setNewBlog({ title: '', author: '', url: '', added: false })
@@ -26,29 +20,29 @@ function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
   return (
 
     <div>
-        <h3>Add New Blog</h3>
-        <form onSubmit={addBlog}>
-          <label>
-            title
-            <input type='text'
-              value={newBlog.title}
-              onChange={e => setNewBlog(prev => prev = { ...prev, title: e.target.value })}></input>
-          </label><br/>
-          <label>
-            author
-            <input type='text'
-              value={newBlog.author}
-              onChange={e => setNewBlog(prev => prev = { ...prev, author: e.target.value })}></input>
-          </label><br />
-          <label>
-            url
-            <input type='text'
-              value={newBlog.url}
-              onChange={e => setNewBlog(prev => prev = { ...prev, url: e.target.value })}></input>
-          </label><br />
-          <button type='submit'>Add Blog</button>
+      <h3>Add New Blog</h3>
+      <form onSubmit={addBlog}>
+        <label>
+          title
+          <input type='text'
+            value={newBlog.title}
+            onChange={e => setNewBlog(prev => prev = { ...prev, title: e.target.value })}></input>
+        </label><br/>
+        <label>
+          author
+          <input type='text'
+            value={newBlog.author}
+            onChange={e => setNewBlog(prev => prev = { ...prev, author: e.target.value })}></input>
+        </label><br />
+        <label>
+          url
+          <input type='text'
+            value={newBlog.url}
+            onChange={e => setNewBlog(prev => prev = { ...prev, url: e.target.value })}></input>
+        </label><br />
+        <button type='submit'>Add Blog</button>
 
-        </form>
+      </form>
     </div>
   )
 }

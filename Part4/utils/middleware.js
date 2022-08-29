@@ -24,7 +24,6 @@ const userExtractor = async (request, response, next) => {
 }
 
 const tokenExtractor = (request, response, next) => {
-  console.log('REQUEST', request)
   const authorization = request.get('authorization')
 
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {

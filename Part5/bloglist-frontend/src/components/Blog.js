@@ -47,18 +47,20 @@ const Blog = ({ blog, user, setBlogs }) => {
         </div>
       </div>
 
+
       <div style={Object.assign(showWhenVisible, blogStyle)}>
         {blog.title}
-        {blog.author} <br/>
+        {blog.author} 
+        <div>
+          <button onClick={() => setVisible(false)}>Hide</button>
+        </div><br/>
         <a href={`https://${blog.url}`} target='blank'>{blog.url}</a><br />
         Likes: {blog.likes}
         <button className='likeBtn' onClick={addLike} >like</button>
         <br/>
         {blog.user.name}
 
-        <div>
-          <button onClick={() => setVisible(false)}>Hide</button>
-        </div>
+        
 
         <div>
           <button onClick={removeBlog}>remove</button>

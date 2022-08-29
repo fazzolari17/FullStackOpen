@@ -12,13 +12,13 @@ function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
     event.target.reset()
 
     blogService.create(newBlog)
-    setNewBlog({...newBlog, added: true })
+    setNewBlog({ ...newBlog, added: true })
 
     setVisible(false)
 
     setTimeout(() => {
       setNewBlog({ title: '', author: '', url: '', added: false })
-    }, 5000)
+    }, 3000)
 
 
   }
@@ -31,9 +31,9 @@ function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
   }
 
   return (
-    
+
     <>
-      {user !== null && 
+      {user !== null &&
       <div className="userLoggedIn"><p>{user.name} is logged in</p>
         <button className="logout-btn" onClick={logout}>Logout</button>
       </div>}
@@ -43,25 +43,26 @@ function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
         <form onSubmit={addBlog}>
           <label>
             title
-            <input type='text' 
+            <input type='text'
               value={newBlog.title}
-              onChange={e => setNewBlog(prev => prev = { ...prev, title: e.target.value})}></input>
+              onChange={e => setNewBlog(prev => prev = { ...prev, title: e.target.value })}></input>
           </label><br/>
           <label>
             author
             <input type='text'
               value={newBlog.author}
-              onChange={e => setNewBlog(prev => prev = {...prev, author: e.target.value})}></input>
+              onChange={e => setNewBlog(prev => prev = { ...prev, author: e.target.value })}></input>
           </label><br />
           <label>
             url
             <input type='text'
               value={newBlog.url}
-              onChange={e => setNewBlog(prev => prev = {...prev, url: e.target.value})}></input>
+              onChange={e => setNewBlog(prev => prev = { ...prev, url: e.target.value })}></input>
           </label><br />
           <button type='submit'>Add Blog</button>
 
         </form>
+
       </div>
       <div style={hideWhenVisible}>
         <button onClick={() => setVisible(true)}>New Blog</button>

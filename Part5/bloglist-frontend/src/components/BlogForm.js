@@ -23,22 +23,9 @@ function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
 
   }
 
-  const logout = () => {
-    localStorage.removeItem('loggedInUser')
-    setUser(null)
-
-    setBlogs([])
-  }
-
   return (
 
-    <>
-      {user !== null &&
-      <div className="userLoggedIn"><p>{user.name} is logged in</p>
-        <button className="logout-btn" onClick={logout}>Logout</button>
-      </div>}
-
-      <div style={showWhenVisible}>
+    <div>
         <h3>Add New Blog</h3>
         <form onSubmit={addBlog}>
           <label>
@@ -62,16 +49,7 @@ function BlogForm({ user, setUser, setNewBlog, newBlog, setBlogs }) {
           <button type='submit'>Add Blog</button>
 
         </form>
-
-      </div>
-      <div style={hideWhenVisible}>
-        <button onClick={() => setVisible(true)}>New Blog</button>
-      </div>
-
-      <div style={showWhenVisible}>
-        <button onClick={() => setVisible(false)}>Cancel</button>
-      </div>
-    </>
+    </div>
   )
 }
 

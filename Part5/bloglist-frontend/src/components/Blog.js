@@ -36,6 +36,10 @@ const Blog = ({ blog, user, setBlogs }) => {
     setBlogs(blogsFromDb)
   }
 
+  const toggleVisibility = () => {
+    setVisible(!visible)
+  }
+
   return (
 
     <div>
@@ -43,7 +47,7 @@ const Blog = ({ blog, user, setBlogs }) => {
         {blog.title} {blog.author}
 
         <div>
-          <button onClick={() => setVisible(true)}>Show</button>
+          <button onClick={toggleVisibility}>Show</button>
         </div>
       </div>
 
@@ -52,18 +56,18 @@ const Blog = ({ blog, user, setBlogs }) => {
         {blog.title}
         {blog.author}
         <div>
-          <button onClick={() => setVisible(false)}>Hide</button>
+          <button onClick={toggleVisibility}>Hide</button>
+
         </div><br/>
         <a href={`https://${blog.url}`} target='blank'>{blog.url}</a><br />
         Likes: {blog.likes}
-        <button className='likeBtn' onClick={addLike} >like</button>
+        <button onClick={addLike}>Like</button>
         <br/>
         {blog.user.name}
 
 
-
         <div>
-          <button onClick={removeBlog}>remove</button>
+          <button onClick={removeBlog}>Remove</button>
         </div>
       </div>
 

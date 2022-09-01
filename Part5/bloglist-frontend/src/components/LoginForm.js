@@ -10,6 +10,7 @@ function LoginForm({ handleLogin, setPassword, setUsername }) {
           <input
             type='text'
             name='username'
+            id='username'
             onChange={e => setUsername(e.target.value)}></input>
         </label>
         <br />
@@ -18,11 +19,12 @@ function LoginForm({ handleLogin, setPassword, setUsername }) {
           <input
             type='password'
             name='password'
+            id='password'
             onChange={e => setPassword(e.target.value)}
           ></input>
         </label>
         <br/>
-        <button type='submit'>Login</button>
+        <button data-cy='login_btn' aria-label='login button' type='submit'>Login</button>
       </form>
     </>
   )

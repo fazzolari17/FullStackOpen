@@ -22,16 +22,16 @@ const Blog = ({ blog, handleLike, handleRemove }) => {
       <p>
         <span aria-label='title'>{blog.title}</span>
         <span aria-label='author'>{blog.author}</span>
-        <button className='showBtn' onClick={toggleVisibility}>{visible ? 'Hide' : 'Show'}</button>
+        <button data-cy='hide_show_btn' className='showBtn' onClick={toggleVisibility}>{visible ? 'Hide' : 'Show'}</button>
       </p>
       <div data-testid={'hidden'} style={Object.assign(showWhenVisible)}>
         <p>
           <a aria-label='url' href={`https://${blog.url}`} target='blank'>{blog.url}</a>
           <span aria-label='likes'>Likes: {blog.likes}</span>
-          <button onClick={() => handleLike(blog.id)}>Like</button>
+          <button data-cy='like-btn' onClick={() => handleLike(blog.id)}>Like</button>
         </p>
-        <p aria-label='username'>{blog.user.name}</p>
-        <button onClick={() => handleRemove(blog.id)}>Remove</button>
+        <p id='blog_creator_username' aria-label='username'>{blog.user.name}</p>
+        <button data-cy='remove_btn' onClick={() => handleRemove(blog.id)}>Remove</button>
       </div>
 
     </section>

@@ -21,7 +21,7 @@ const App = () => {
 
 
   useEffect(() => {
-    console.log('USE EFFECT')
+    // console.log('USE EFFECT')
     const loggedInUserJSON = localStorage.getItem('loggedInUser')
 
     if (loggedInUserJSON) {
@@ -124,22 +124,20 @@ const App = () => {
       {errorMessage !== null && <ErrorMessage message={errorMessage}/>}
       {newBlog.added && <SuccessMessage newBlog={newBlog}/>}
 
-      {user !== null &&
-      <div className="userLoggedIn"><p>{user.name} is logged in</p>
-        <button onClick={logout}>Logout</button>
+      {user !== null && <div className="userLoggedIn"><p>{user.name} is logged in</p>
+        <button data-cy='logout_btn' onClick={logout}>Logout</button>
       </div>}
 
-      {user === null ?
-        <Togglable buttonLabel={'Login'}>
+      {user === null &&
+        <Togglable visible={true} buttonId={'login_cancel_btn'} buttonLabel={'Login'}>
           <LoginForm
             setUsername={setUsername}
             setPassword={setPassword}
             handleLogin={handleLogin}
           />
-        </Togglable>
-
-        :
-        <Togglable buttonLabel={'New Blog'} ref={blogFormRef}>
+        </Togglable>}
+      { user !== null &&
+        <Togglable visible={false} buttonId={'new_blog_button'} buttonLabel={'New Blog'} ref={blogFormRef}>
           <BlogForm
             setNewBlog={setNewBlog}
             handleSubmit={addBlog}

@@ -21,7 +21,7 @@ const Blog = ({ blog, handleLike, handleRemove }) => {
     <section data-testid={'blog'} className='blog' style={blogStyle}>
       <p>
         <span aria-label='title'>{blog.title}</span>
-        <span aria-label='author'>{blog.author}</span>
+        <span aria-label='author'>{` ${blog.author}`}</span>
         <button data-cy='hide_show_btn' className='showBtn' onClick={toggleVisibility}>{visible ? 'Hide' : 'Show'}</button>
       </p>
       <div data-testid={'hidden'} style={Object.assign(showWhenVisible)}>

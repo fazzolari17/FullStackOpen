@@ -1,9 +1,11 @@
 import { createAction, createSlice } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 
 const initialState = {
   message: 'Reverted to previous commit to fix this',
   isShowing: false
 }
+
 const notificationSlice = createSlice({
   name:'message',
   initialState,

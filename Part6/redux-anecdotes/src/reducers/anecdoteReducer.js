@@ -28,39 +28,39 @@ const reducer = (state = initialState, action) => {
   console.log('action', action)
 
   switch (action.type) {
-    case 'VOTE': {
-      const id = action.data.id
-      const anecdoteToChange = state.find(anecdote => anecdote.id === id)
-      const changedAnecdote = {
-        ...anecdoteToChange,
-        votes: anecdoteToChange.votes+ 1
-      }
-      return state.map(a => a.id !== id ? a : changedAnecdote)
+  case 'VOTE': {
+    const id = action.data.id
+    const anecdoteToChange = state.find(anecdote => anecdote.id === id)
+    const changedAnecdote = {
+      ...anecdoteToChange,
+      votes: anecdoteToChange.votes+ 1
     }
-    case 'ADD_ANECDOTE':
-      return state.concat(action.data)
+    return state.map(a => a.id !== id ? a : changedAnecdote)
+  }
+  case 'ADD_ANECDOTE':
+    return state.concat(action.data)
 
-    default:
-      return state
+  default:
+    return state
   }
 
 
 }
 
 export const addVote = (id) => {
-    return { type: 'VOTE', data: { id }} //initialState.map(a => a.id !== id ? a : changedAnecdote)
-  }
+  return { type: 'VOTE', data: { id } } //initialState.map(a => a.id !== id ? a : changedAnecdote)
+}
 
 export const addAnecdote = content => {
-    return {
-      type: 'ADD_ANECDOTE',
-      data: {
-        content,
-        votes: 0,
-        id: getId()
-      }
+  return {
+    type: 'ADD_ANECDOTE',
+    data: {
+      content,
+      votes: 0,
+      id: getId()
     }
   }
+}
 
 
 export default reducer

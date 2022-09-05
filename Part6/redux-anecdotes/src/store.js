@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import addAnecdote from './reducers/anecdoteReducer'
-import addVote from './reducers/anecdoteReducer'
+import anecdoteSlice from './reducers/anecdoteReducer'
 import notificationMessage from './reducers/notificationReducer'
 
 
 const store = configureStore({
   reducer: {
-    anecdotes: addAnecdote,
-    votes: addVote,
+    anecdotes: anecdoteSlice,
     message: notificationMessage
   }
 })

@@ -1,5 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   message: 'Reverted to previous commit to fix this',
@@ -18,6 +17,19 @@ const notificationSlice = createSlice({
     }
   }
 })
+
+export const setNotification = (message, displayTime) => {
+  return async dispatch => {
+    dispatch(changeMessage(message))
+    dispatch(messageVisibility())
+
+    setTimeout(() => {
+      dispatch(messageVisibility())
+    }, displayTime)
+  }
+
+
+}
 
 export const { changeMessage, messageVisibility } = notificationSlice.actions
 export default notificationSlice.reducer

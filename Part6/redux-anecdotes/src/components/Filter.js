@@ -11,8 +11,8 @@ const Filter = () => {
     filter.length > 0
       ? dispatch(filterText(filter))
       : dispatch(filterText('ALL'))
-
   }
+
   const style = {
     marginBottom: 10
   }

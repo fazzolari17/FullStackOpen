@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { addVote } from '../reducers/anecdoteReducer'
-import { changeMessage, messageVisibility } from '../reducers/notificationReducer'
+import { updateVotes } from '../reducers/anecdoteSlice'
+import { setNotification } from '../reducers/notificationSlice'
 
 const AnecdoteList = () => {
   const anecdotes = useSelector(state => state.anecdotes)
@@ -10,23 +10,22 @@ const AnecdoteList = () => {
   const dispatch = useDispatch()
 
   const vote = id => {
-    dispatch(addVote(id))
-    const textToDisplay = anecdotes.find(item => item.id === id)
-    displayNotification(textToDisplay.content)
-  }
+    const object = anecdotes.find(item => item.id === id)
 
-  const displayNotification = messageContent => {
-    dispatch(changeMessage(messageContent))
-    dispatch(messageVisibility())
+    const updatedObject = {
+      ...object,
+      votes: object.votes + 1
+    }
 
-    setTimeout(() => {
-      dispatch(messageVisibility())
-    }, 3000)
+    dispatch(updateVotes(id, updatedObject))
+    dispatch(setNotification(`you voted ${object.content}`, '5000'))
   }
 
   const sortedByVotes = [...anecdotes].sort((a, b) => b.votes - a.votes)
   const filtered = sortedByVotes.filter(item => {
-    return filterState === 'ALL' ? item : item.content.toLowerCase().includes(filterState) }  )
+    return filterState === 'ALL'
+      ? item
+      : item.content.toLowerCase().includes(filterState) })
 
   const anecdotesMapped = filtered.map(anecdote =>
     (<div key={anecdote.id}>

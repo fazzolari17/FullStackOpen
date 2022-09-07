@@ -7,11 +7,15 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^14.1.1",
+    "axios": "^0.27.2",
+    "link": "^1.5.1",
+    "nanoid": "^4.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -19,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "server": "json-server -p3001 --watch db.json"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +46,7 @@
   },
   "devDependencies": {
     "eslint": "^8.23.0",
-    "eslint-plugin-react": "^7.31.6"
+    "eslint-plugin-react": "^7.31.6",
+    "json-server": "^0.17.0"
   }
 }

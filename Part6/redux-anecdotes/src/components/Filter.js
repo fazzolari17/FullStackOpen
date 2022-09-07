@@ -1,9 +1,8 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { filterText }from '../reducers/filterSlice'
 
-const Filter = () => {
-  const dispatch = useDispatch()
+const Filter = ({ dispatch }) => {
 
   const handleChange = e => {
     const filter = e.target.value.toLowerCase()
@@ -24,4 +23,11 @@ const Filter = () => {
   )
 }
 
-export default Filter
+const mapStateToProps = state => {
+  return {
+    filter: state.filter
+  }
+}
+
+const ConnectedFilter = connect(mapStateToProps)(Filter)
+export default ConnectedFilter

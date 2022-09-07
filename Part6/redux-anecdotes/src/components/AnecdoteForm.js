@@ -1,13 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { createNew } from '../reducers/anecdoteSlice'
 import { setNotification } from '../reducers/notificationSlice'
 
 
 
-const AnecdoteForm = () => {
-  const dispatch = useDispatch()
-
+const AnecdoteForm = ({ dispatch }) => {
 
   const create = e => {
     e.preventDefault()
@@ -28,4 +26,6 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+
+const ConnectedAnecdoteForm = connect()(AnecdoteForm)
+export default ConnectedAnecdoteForm

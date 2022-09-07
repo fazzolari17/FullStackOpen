@@ -1,13 +1,9 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { updateVotes } from '../reducers/anecdoteSlice'
 import { setNotification } from '../reducers/notificationSlice'
 
-const AnecdoteList = () => {
-  const anecdotes = useSelector(state => state.anecdotes)
-  const filterState = useSelector(state => state.filter)
-
-  const dispatch = useDispatch()
+const AnecdoteList = ({ anecdotes, filterState, dispatch }) => {
 
   const vote = id => {
     const object = anecdotes.find(item => item.id === id)
@@ -46,4 +42,12 @@ const AnecdoteList = () => {
   )
 }
 
-export default AnecdoteList
+const mapStateToProps = state => {
+  return {
+    anecdotes: state.anecdotes,
+    filterState: state.filter
+  }
+}
+
+const ConnectedAnecdoteList = connect(mapStateToProps)(AnecdoteList)
+export default ConnectedAnecdoteList

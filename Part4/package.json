@@ -1,7 +1,7 @@
 {
   "name": "blog-list-app",
   "version": "1.0.0",
-  "description": "A Blog List App that allows users to save information about the interwsting blogs that have stmbled accross on the internet.",
+  "description": "A Blog List App that allows users to save information about the interesting blogs that have stmbled accross on the internet.",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node index.js",

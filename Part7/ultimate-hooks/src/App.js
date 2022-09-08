@@ -33,10 +33,12 @@ const useResource = (baseUrl, content) => {
   
   const create = async (content) => {
     const newObject = content 
-    
     const response = await axios.post(baseUrl, newObject)
+
+    // called to update the page with newly created item
     const getResponse = await axios.get(baseUrl)
     setResources(getResponse.data)
+
     return response.data
   }
   

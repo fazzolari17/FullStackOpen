@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-function SuccessMessage() {
+function Notification() {
   const notification = useSelector(state => state.notification)
 
   return (
@@ -11,4 +11,4 @@ function SuccessMessage() {
   )
 }
 
-export default SuccessMessage
+export default Notification

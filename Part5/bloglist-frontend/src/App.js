@@ -9,18 +9,23 @@ import ErrorMessage from './components/ErrorMessage'
 import SuccessMessage from './components/SuccessMessage'
 import Togglable from './components/Togglable'
 
+import { useDispatch } from 'react-redux'
+import { setNotification } from './reducers/notificationReducer'
+
 const App = () => {
   const [ blogs, setBlogs ] = useState([])
   const [ user, setUser ] = useState(null)
   const [ errorMessage, setErrorMessage ] = useState(null)
-  const [ newBlog, setNewBlog ] = useState({ title: '', author: '', url: '', added: false })
+  const [ newBlog, setNewBlog ] = useState({ title: '', author: '', url: '' }) //, added: false
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
 
   const blogFormRef = useRef()
+  const dispatch = useDispatch()
 
 
   useEffect(() => {
+    //Get Authentication token from local storage
     const loggedInUserJSON = localStorage.getItem('loggedInUser')
 
     if (loggedInUserJSON) {
@@ -71,6 +76,7 @@ const App = () => {
     e.preventDefault()
     e.target.reset()
 
+    dispatch(setNotification(`A new blog ${newBlog.title} by ${newBlog.author} added`, 'successMsg', '5000'))
     blogFormRef.current.toggleVisibility()
     blogService.create(newBlog)
     setNewBlog({ ...newBlog, added: true })
@@ -120,6 +126,7 @@ const App = () => {
   return (
     <div>
       <h2>Blogs</h2>
+      {/* Error and Success Messages for  */}
       {errorMessage !== null && <ErrorMessage message={errorMessage}/>}
       {newBlog.added && <SuccessMessage newBlog={newBlog}/>}
 

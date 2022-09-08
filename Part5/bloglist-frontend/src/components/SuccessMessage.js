@@ -1,10 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-function SuccessMessage({ newBlog }) {
-  const { title, author } = newBlog
+function SuccessMessage() {
+  const notification = useSelector(state => state.notification)
+
   return (
-    <div className="successMsg">
-      <h3>A new blog {title} by {author} added</h3>
+    <div className={notification.className}>
+      <h3>{notification.message}</h3>
     </div>
   )
 }

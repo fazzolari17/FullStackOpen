@@ -21,7 +21,6 @@ const App = () => {
 
 
   useEffect(() => {
-    // console.log('USE EFFECT')
     const loggedInUserJSON = localStorage.getItem('loggedInUser')
 
     if (loggedInUserJSON) {

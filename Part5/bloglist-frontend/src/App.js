@@ -5,18 +5,18 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import blogService from './services/blogService'
 import loginService from './services/login'
-import ErrorMessage from './components/ErrorMessage'
-import SuccessMessage from './components/SuccessMessage'
+import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
 
 const App = () => {
+  const notification = useSelector(state => state.notification)
+
   const [ blogs, setBlogs ] = useState([])
   const [ user, setUser ] = useState(null)
-  const [ errorMessage, setErrorMessage ] = useState(null)
-  const [ newBlog, setNewBlog ] = useState({ title: '', author: '', url: '' }) //, added: false
+  const [ newBlog, setNewBlog ] = useState({ title: '', author: '', url: '' })
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
 
@@ -65,10 +65,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      dispatch(setNotification('Wrong credentials', 'errorMsg', '5000'))
     }
   }
 
@@ -79,7 +76,7 @@ const App = () => {
     dispatch(setNotification(`A new blog ${newBlog.title} by ${newBlog.author} added`, 'successMsg', '5000'))
     blogFormRef.current.toggleVisibility()
     blogService.create(newBlog)
-    setNewBlog({ ...newBlog, added: true })
+    setNewBlog({ ...newBlog })
 
     setTimeout(() => {
       setNewBlog({ title: '', author: '', url: '', added: false })
@@ -127,8 +124,8 @@ const App = () => {
     <div>
       <h2>Blogs</h2>
       {/* Error and Success Messages for  */}
-      {errorMessage !== null && <ErrorMessage message={errorMessage}/>}
-      {newBlog.added && <SuccessMessage newBlog={newBlog}/>}
+      {/* {errorMessage !== null && <ErrorMessage message={errorMessage}/>} */}
+      {notification.isVisible && <Notification newBlog={newBlog}/>}
 
       {user !== null && <div className="userLoggedIn"><p>{user.name} is logged in</p>
         <button data-cy='logout_btn' onClick={logout}>Logout</button>

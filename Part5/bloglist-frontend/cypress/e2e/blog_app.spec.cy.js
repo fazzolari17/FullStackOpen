@@ -141,7 +141,18 @@ describe('adding new blogs', function() {
       .should('exist')
       .and('be.visible')
   })
+  
+  it('adding a blog automatically adds user who created it', function() {
+    cy.get('#new_blog_button').click()
+    cy.get('@title').type('titled')
+    cy.get('@author').type('authored')
+    cy.get('@url').type('www.cypress.io')
+    cy.get('@add-blog').click()
+    cy.get('hide_show_button').click()
+    cy.contains('Test User').should('exist').and('be.visible')
 
+
+  })
 
   it('adding a new blog only displays title, author, and show button by default', function() {
     cy.get('#new_blog_button').click()

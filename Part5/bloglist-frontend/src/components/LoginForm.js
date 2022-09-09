@@ -1,6 +1,9 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { setUsername, setPassword } from '../reducers/loginFormReducer'
 
-function LoginForm({ handleLogin, setPassword, setUsername }) {
+function LoginForm({ handleLogin }) {
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -11,7 +14,7 @@ function LoginForm({ handleLogin, setPassword, setUsername }) {
             type='text'
             name='username'
             id='username'
-            onChange={e => setUsername(e.target.value)}></input>
+            onChange={e => dispatch(setUsername(e.target.value))}></input>
         </label>
         <br />
         <label>
@@ -20,7 +23,7 @@ function LoginForm({ handleLogin, setPassword, setUsername }) {
             type='password'
             name='password'
             id='password'
-            onChange={e => setPassword(e.target.value)}
+            onChange={e => dispatch(setPassword(e.target.value))}
           ></input>
         </label>
         <br/>

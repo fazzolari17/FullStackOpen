@@ -27,6 +27,7 @@ const create = async newObject => {
 
 const update = async (id, newObject) => {
   const request = await axios.put(`${ baseUrl }/${ id }`, newObject, { headers: { 'Authorization': globalToken } })
+  console.log('!!!', request.data)
   return request.data
 }
 

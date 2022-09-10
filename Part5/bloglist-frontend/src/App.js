@@ -1,18 +1,25 @@
 import './style.css'
 import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter as Router, useParams } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
+
 import Blog from './components/Blog'
+import BlogList from './components/BlogList'
+import SingleBlog from './components/SingleBlog'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import blogService from './services/blogService'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
+import Users from './components/Users'
 
-import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
-import { initializeState, removeAllBlogs, createNew, removeBlogFromState, addLikes, } from './reducers/blogPostListReducer'
 import { toggleAdded } from './reducers/blogFormReducer'
 import { resetLoginForm } from './reducers/loginFormReducer'
 import { login, resetUserInfo, setUser } from './reducers/userReducer'
+import { initializeState, removeAllBlogs, createNew, removeBlogFromState, addLikes, } from './reducers/blogPostListReducer'
+import { fetchUsers, resetAllUsers, setAllUsers } from './reducers/allUsers'
 
 const App = () => {
   const notification = useSelector(state => state.notification)
@@ -23,14 +30,19 @@ const App = () => {
 
   const blogFormRef = useRef()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     //Get Authentication token from local storage
+    const allUsersJSON = localStorage.getItem('allUsers')
     const loggedInUserJSON = localStorage.getItem('loggedInUser')
 
     if (loggedInUserJSON) {
       const user = JSON.parse(loggedInUserJSON)
+      const allUsers = JSON.parse(allUsersJSON)
+
       dispatch(setUser(user))
+      dispatch(setAllUsers(allUsers))
 
       blogService.setToken(user.token)
       dispatch(initializeState(user.token))
@@ -39,8 +51,11 @@ const App = () => {
 
   const logout = () => {
     localStorage.removeItem('loggedInUser')
+    localStorage.removeItem('allUsers')
     dispatch(resetUserInfo())
     dispatch(removeAllBlogs())
+    dispatch(resetAllUsers([]))
+    navigate('/')
   }
 
   const handleLogin = async (event) => {
@@ -49,6 +64,8 @@ const App = () => {
 
     dispatch(login(loginForm.username, loginForm.password))
     dispatch(resetLoginForm())
+    dispatch(fetchUsers())
+    navigate('/users')
   }
 
   const addBlog = e => {
@@ -70,6 +87,7 @@ const App = () => {
     }
     dispatch(removeBlogFromState(blog.id, user.token))
     dispatch(initializeState(user.token))
+    navigate('/blogs')
 
   }
 
@@ -84,36 +102,58 @@ const App = () => {
     dispatch(initializeState(user.token))
   }
 
-  const blogsMappedFromServer = blogs.map(blog =>
-    <Blog
-      key={blog.id}
-      blog={blog}
-      user={user.name}
-      handleLike={addLike}
-      handleRemove={removeBlog}/>
-  )
-
-  const sortedByLikes = blogsMappedFromServer.sort((a, b) => parseInt(b.props.blog.likes) - parseInt(a.props.blog.likes))
+  const padding = {
+    paddingLeft: '.5rem'
+  }
 
   return (
     <div>
-      <h2>Blogs</h2>
+      <nav className='navBar'>
+        <Link style={padding} to='/'>Home</Link>
+        <Link style={padding} to='/blogs'>Blogs</Link>
+        <Link style={padding} to='/users'>Users</Link>
+        <Link style={padding} to='/login'>Login</Link>
+        {user !== null && <div className="userLoggedIn"><p>{user.name} is logged in</p>
+          <button data-cy='logout_btn' onClick={logout}>Logout</button>
+        </div>}
+      </nav>
       {notification.isVisible && <Notification />}
+      <Routes>
+        {/* ========================================================================================= */}
 
-      {user !== null && <div className="userLoggedIn"><p>{user.name} is logged in</p>
-        <button data-cy='logout_btn' onClick={logout}>Logout</button>
-      </div>}
+        <Route path='/' element={<h1>Home</h1>}/>
 
-      {user === null &&
-        <Togglable visible={true} buttonId={'login_cancel_btn'} buttonLabel={'Login'}>
-          <LoginForm handleLogin={handleLogin} />
-        </Togglable>}
-      { user !== null &&
-        <Togglable visible={false} buttonId={'new_blog_button'} buttonLabel={'New Blog'} ref={blogFormRef}>
-          <BlogForm handleSubmit={addBlog} />
-        </Togglable>}
+        <Route path='/login' element={
+          <Togglable classname={'loginToggle'} visible={true} buttonId={'login_cancel_btn'} buttonLabel={'Login'}>
+            <LoginForm handleLogin={handleLogin} />
+          </Togglable>} />
+        {/* ========================================================================================= */}
+        <Route
+          path='/users/:id'
+          element={
+            <div>
+              <h4>added Blogs</h4>
+              <BlogList addLike={addLike} removeBlog={removeBlog} />
+            </div>
+          } />
 
-      { sortedByLikes }
+        <Route path='/users' element={<Users />} />
+
+        <Route path ='/blogs/:id' element={
+          <SingleBlog  handleLike={addLike} handleRemove={removeBlog} />
+        } />
+
+        <Route path='/blogs' element={
+          <div>
+            <h2>Blogs</h2>
+            <Togglable visible={false} buttonId={'new_blog_button'} buttonLabel={'New Blog'} ref={blogFormRef}>
+              <BlogForm handleSubmit={addBlog} />
+            </Togglable>
+            <BlogList addLike={addLike} removeBlog={removeBlog} />
+            {/* {sortedByLikes} */}
+          </div>} />
+
+      </Routes>
     </div>
   )
 }

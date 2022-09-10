@@ -1,43 +1,47 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const Blog = ({ blog, handleLike, handleRemove }) => {
+const Blog = ({ blog, handleLike, handleRemove, onUserPage }) => {
   const [ visible, setVisible ] = useState(false)
 
   const showWhenVisible = { display: visible ? '' : 'none' }
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
+  // updates style based on page
+  let blogStyle
+  onUserPage
+    ? blogStyle = {
+      paddingTop: 10,
+      paddingLeft: 2,
+      marginBottom: 5
+    }
+    : blogStyle = {
+      paddingTop: 10,
+      paddingLeft: 2,
+      border: 'solid',
+      borderWidth: 1,
+      marginBottom: 5
+    }
 
   const toggleVisibility = () => {
     setVisible(!visible)
   }
 
-  return (
-    <section data-testid={'blog'} className='blog' style={blogStyle}>
-      <p>
-        <span aria-label='title'>{blog.title}</span>
-        <span aria-label='author'>{` ${blog.author}`}</span>
-        <button data-cy='hide_show_btn' className='showBtn' onClick={toggleVisibility}>{visible ? 'Hide' : 'Show'}</button>
-      </p>
-      <div data-testid={'hidden'} style={Object.assign(showWhenVisible)}>
-        <p>
-          <a aria-label='url' href={`https://${blog.url}`} target='blank'>{blog.url}</a>
-          <span aria-label='likes'>Likes: {blog.likes}</span>
-          <button data-cy='like-btn' onClick={() => handleLike(blog.id)}>Like</button>
-        </p>
-        <p id='blog_creator_username' aria-label='username'>{blog.user.name}</p>
-        <button data-cy='remove_btn' onClick={() => handleRemove(blog.id)}>Remove</button>
+  if(onUserPage) {
+    return (
+      <section data-testid={'blog'} className='blog' style={blogStyle}>
+        <li>
+          {blog.title}
+        </li>
+      </section>
+    )
+  } else {
+    return (
+      <div style={blogStyle} >
+        <Link to={`/blogs/${blog.id}`}>{`${blog.title} ${blog.author}`}</Link>
       </div>
+    )
+  }
 
-    </section>
-
-
-  )
 }
 
 export default Blog

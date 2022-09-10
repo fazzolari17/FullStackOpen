@@ -27,7 +27,7 @@ export const login = (username, password) => {
       localStorage.setItem('loggedInUser', JSON.stringify(response))
       blogService.setToken(response.token)
     } catch(exception) {
-      dispatch(setNotification('Wrong credentials', 'errorMsg', '5000'))
+      dispatch(setNotification('Invalid username or password', 'errorMsg', '5000'))
     }
   }
 }

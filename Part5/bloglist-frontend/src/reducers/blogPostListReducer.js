@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogService'
+import { setNotification } from './notificationReducer'
 
 const blogPostSlice = createSlice({
   name: 'blogPost',
@@ -27,8 +28,14 @@ const blogPostSlice = createSlice({
 
 export const initializeState = (token) => {
   return async dispatch => {
-    const blogs = await blogService.getAll(token)
-    dispatch(setBlogs(blogs))
+    try {
+      const response = await blogService.getAll(token)
+      dispatch(setBlogs(response))
+    } catch (error) {
+      if(error.response.data.error === 'token expired') {
+        dispatch(setNotification(error.response.data.error, 'errorMsg', '2000'))
+      }
+    }
   }
 }
 

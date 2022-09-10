@@ -1,5 +1,5 @@
 @serverID = 630aee8c97cba3d40fea6044
-@token =  bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMGFhNzdkZGQ0NDY3ZWM1Mjc3OWI2NSIsImlhdCI6MTY2MTY5OTA2NiwiZXhwIjoxNjYxNzAyNjY2fQ.V_e0U0mzPQm-6FVAGacApdzDAJE_z2SmywJkns5jcac
+@token =  bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZhenpvbGFyaTE3IiwiaWQiOiI2MzFhYWI5Zjk4ZWI1Njc5YmFkMDUxZjUiLCJpYXQiOjE2NjI2OTIyODAsImV4cCI6MTY2MjY5NTg4MH0.ykp3uNdKJL4TQ1W3A3MGqk2FOICXOlC-RjrF9MXcz1A
 ### DELETE REQUEST
 DELETE http://localhost:3003/api/blogs/{{serverID}}
 # Content-Type: application/json
@@ -32,8 +32,8 @@ Content-Type: application/json
 Authorization: {{token}}
 
 { 
-  "title": "Giuseppe's UPDATED",
-  "author": "Giuseppe Fazzolari",
+  "title": "Fazzolari17 Third Account Number Four",
+  "author": "Fazzolari17",
   "url": "http://www.GiuseppeFazzolariHasGotAJob.com",
   "likes": 100000
 }

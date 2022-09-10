@@ -6,7 +6,7 @@ function LoginForm({ handleLogin }) {
   const dispatch = useDispatch()
 
   return (
-    <>
+    <div className='loginForm'>
       <form onSubmit={handleLogin}>
         <label>
           username
@@ -29,7 +29,7 @@ function LoginForm({ handleLogin }) {
         <br/>
         <button data-cy='login_btn' aria-label='login button' type='submit'>Login</button>
       </form>
-    </>
+    </div>
   )
 }
 

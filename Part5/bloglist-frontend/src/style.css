@@ -1,3 +1,79 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  background-color: grey;
+  padding: 1rem;
+}
+/* Global Non-Specific */
+.btn {
+  /* border-radius: 5px; */
+  padding: .2rem;
+}
+
+/* Login Form */
+.loginForm {
+  padding: 1rem;
+}
+
+.loginForm input {
+  margin: .25rem;
+}
+
+.loginForm button {
+  margin: .25rem 0 0 0rem; 
+}
+
+.loginToggle {
+  padding: 1rem;
+}
+
+#login_cancel_btn {
+
+  margin-left: 1rem;
+}
+
+/* Blog Form */
+.blog_form_title {
+  position: relative;
+  left: 50px;
+  margin-bottom: .5rem;
+}
+.blog_form {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog_form form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 13rem;
+}
+.form_fields {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: .1rem;
+}
+
+
+.blog_form input {
+  margin-left: 1rem;
+  justify-self: flex-end;
+}
+
+#new_blog_button {
+  position: relative;
+  left: 0px;
+}
+ 
+/* Logout  */
 .logout-btn {
   display: inline;
 }
@@ -8,6 +84,46 @@
   align-items: center;
 }
 
+/* Users */
+.Users_Page_Wrapper {
+  margin: 1rem;
+}
+
+.userBlogs, 
+.userTitle {
+  width: 10rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.userTitle {
+  display: flex;
+}
+
+/* Single_Blogs */
+
+.sb_main_container {
+  margin: 1rem;
+}
+
+.sb_title {
+  padding: .5rem 0 .5rem 0;
+}
+
+.sb_url {
+  padding: 0 0 .5rem 0;
+  /* border: 1px solid red; */
+}
+
+.sb_likes_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 5rem;
+
+  margin: .5rem 0 .5rem 0;
+}
+/* Notifications */
 .errorMsg{
   padding-left: 1rem;
   margin-bottom: 1rem;
@@ -23,3 +139,4 @@
   border: 5px solid green;
   border-radius: 10px;
 }
+

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+// import style from '../style.json'
 
 const Blog = ({ blog, handleLike, handleRemove, onUserPage }) => {
   const [ visible, setVisible ] = useState(false)
@@ -10,25 +11,31 @@ const Blog = ({ blog, handleLike, handleRemove, onUserPage }) => {
   let blogStyle
   onUserPage
     ? blogStyle = {
-      paddingTop: 10,
-      paddingLeft: 2,
-      marginBottom: 5
+      paddingTop: '10rem',
+      paddingLeft: '2rem',
+      marginBottom: '5rem',
+      marginTop: '1rem'
     }
     : blogStyle = {
-      paddingTop: 10,
-      paddingLeft: 2,
-      border: 'solid',
-      borderWidth: 1,
-      marginBottom: 5
+      padding: '.25rem 1rem',
+      border: '1px solid black',
+      borderRadius: '5px',
+      margin: '1rem',
+      backgroundColor: '#F7F0F0',
+      color: '#FFF07C'
     }
 
-  const toggleVisibility = () => {
-    setVisible(!visible)
+  const style = {
+    style: {
+      // padding: '.25rem',
+      margin: '1rem',
+      color: '#484349'
+    }
   }
 
   if(onUserPage) {
     return (
-      <section data-testid={'blog'} className='blog' style={blogStyle}>
+      <section data-testid={'blog'} className='blog' style={style.style}>
         <li>
           {blog.title}
         </li>
@@ -37,7 +44,7 @@ const Blog = ({ blog, handleLike, handleRemove, onUserPage }) => {
   } else {
     return (
       <div style={blogStyle} >
-        <Link to={`/blogs/${blog.id}`}>{`${blog.title} ${blog.author}`}</Link>
+        <Link to={`/blogs/${blog.id}`} style={{ color: '#484349', textDecoration: 'none' }}>{`${blog.title} ${blog.author}`} </Link>
       </div>
     )
   }

@@ -1,11 +1,11 @@
-@serverID = 630aa77ddd4467ec52779b65
+@userID = 631ccceeba009ff8c346dc52
 
-@token = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMDgyNWEzNzM3M2I0NWUwM2Y2ZWVmNCIsImlhdCI6MTY2MTUxMzYxNiwiZXhwIjoxNjYxNTE3MjE2fQ.aqvN-urVxVQ1kCVgpfBahYhPipCJgk5hb25cko1-g04
+@token = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZhenpvbGFyaTE3IiwiaWQiOiI2MzFjY2NlZWJhMDA5ZmY4YzM0NmRjNTIiLCJpYXQiOjE2NjI4MzU0MDIsImV4cCI6MTY2MjgzOTAwMn0.3D4r4RUss28IJE50E2JPk3VLg4pTsx6bZAl3YZsSl2k
 ### DELETE REQUEST
-DELETE http://localhost:3003/api/users/{{serverID}}
+DELETE http://localhost:3003/api/users/{{userID}}
 
 ### GET SPECIFIC ITEM FROM SERVER
-GET http://localhost:3003/api/users/{{serverID}}
+GET http://localhost:3003/api/users/{{userID}}
 
 
 ### GET ALL FROM SERVER REQUEST
@@ -17,7 +17,7 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 { 
-  "username": "Fazzolari17",
+  "username": "Root",
   "name": "Giuseppe Fazzolari",
   "password": "password"
 }

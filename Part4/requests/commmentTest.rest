@@ -1,0 +1,12 @@
+@token = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZhenpvbGFyaTE3IiwiaWQiOiI2MzFjY2NlZWJhMDA5ZmY4YzM0NmRjNTIiLCJpYXQiOjE2NjI4MzM2NTcsImV4cCI6MTY2MjgzNzI1N30.ouf9qjPvOvpQgvdGYzZ24fhPFSPwYGGcTODowb7JNEM
+@blogID = 631cdb27e76bec6e86cb1582
+
+###
+POST   http://localhost:3003/api/blogs/{{blogID}}/comments
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "comment": "Giuseppe's Comment Number Three.?!?!",
+  "blogId": "{{blogID}}"
+}

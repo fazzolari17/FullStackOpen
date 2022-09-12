@@ -6,7 +6,6 @@ const BlogList = ({ addLike, removeBlog }) => {
   const blogs = useSelector(state => state.blogs)
   const user = useSelector(state => state.user)
   const userId = useParams()
-  console.log(userId.id)
 
   const sortedByLikes = [...blogs].sort((a,b) => parseInt(b.likes) - parseInt(a.likes))
   let filtered

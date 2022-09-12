@@ -8,7 +8,19 @@
   display: flex;
   align-items: center;
   background-color: grey;
-  padding: 1rem;
+  padding: .75rem;
+}
+
+.userLoggedIn {
+  margin: 0 1rem;
+  color: #0D1321;
+}
+
+#logout_btn {
+  margin: 0 1rem;
+  padding: .15rem .5rem;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 /* Global Non-Specific */
 .btn {
@@ -106,6 +118,9 @@
   margin: 1rem;
 }
 
+.sb_single_blog_user {
+  margin: 1rem 0;
+}
 .sb_title {
   padding: .5rem 0 .5rem 0;
 }
@@ -118,10 +133,33 @@
 .sb_likes_container {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  width: 5rem;
-
+  width: 6.5rem;
   margin: .5rem 0 .5rem 0;
+}
+
+.like_btn button  {
+
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.like_btn {
+    padding: .05rem .35rem;
+}
+
+.remove_btn {
+  padding: .05rem .35rem;
+}
+
+
+#new_blog_button {
+  margin: .5rem 0 0 1rem;
+}
+
+.comments {
+  margin: 0 1rem;
 }
 /* Notifications */
 .errorMsg{

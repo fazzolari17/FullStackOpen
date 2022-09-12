@@ -1,7 +1,6 @@
 import './style.css'
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 
 import blogService from './services/blogService'
@@ -130,7 +129,7 @@ const App = () => {
           path='/users/:id'
           element={
             <div>
-              <h4>added Blogs</h4>
+              <h4 style={{ margin: '1rem' }}>added Blogs</h4>
               <BlogList addLike={addLike} removeBlog={removeBlog} />
             </div>
           } />

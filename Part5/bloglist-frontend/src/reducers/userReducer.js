@@ -24,8 +24,8 @@ export const login = (username, password) => {
       const response = await loginService.login({ username, password })
       dispatch(setUser(response))
       dispatch(initializeState(response.token))
-      localStorage.setItem('loggedInUser', JSON.stringify(response))
       blogService.setToken(response.token)
+      localStorage.setItem('loggedInUser', JSON.stringify(response))
     } catch(exception) {
       dispatch(setNotification('Invalid username or password', 'errorMsg', '5000'))
     }

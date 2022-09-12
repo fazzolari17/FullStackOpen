@@ -2,15 +2,19 @@ import axios from 'axios'
 const baseUrl = '/api/blogs'
 
 let globalToken = null
+let config = {
+  headers: {
+    'Authorization':  globalToken }
+}
 
-const setToken = async (newToken) => {
+const setToken = (newToken) => {
   globalToken = `bearer ${newToken}`
 }
 
-const getAll = async (token) => {
+const getAll = async () => {
   const config = {
     headers: {
-      'Authorization': `bearer ${token}` }
+      'Authorization':  globalToken }
   }
   const request = await axios.get(baseUrl, config)
   return request.data
@@ -26,15 +30,30 @@ const create = async newObject => {
 }
 
 const update = async (id, newObject) => {
-  const request = await axios.put(`${ baseUrl }/${ id }`, newObject, { headers: { 'Authorization': globalToken } })
-  console.log('!!!', request.data)
+  const config = {
+    headers: {
+      'Authorization':  globalToken }
+  }
+  const request = await axios.put(`${ baseUrl }/${ id }`, newObject, config )
   return request.data
 }
 
 const remove = async (id) => {
-  const request = await axios.delete(`${ baseUrl }/${ id }`, { headers: { 'Authorization': globalToken } })
+  const config = {
+    headers: {
+      'Authorization':  globalToken }
+  }
+  const request = await axios.delete(`${ baseUrl }/${ id }`, config )
   return request
 }
 
+const createComment = async ({ blogId, comment }) => {
+  const config = {
+    headers: { Authorization: globalToken }
+  }
+  const response = await axios.post(`/api/blogs/${ blogId }/comments`, { blogId, comment }, config)
+  return response.data
+}
 
-export default { getAll, create, update, setToken, remove }
+
+export default { getAll, create, update, setToken, remove, createComment }

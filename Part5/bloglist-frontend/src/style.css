@@ -8,24 +8,24 @@
   display: flex;
   align-items: center;
   background-color: grey;
-  padding: .75rem;
+  padding: 0.75rem;
 }
 
 .userLoggedIn {
   margin: 0 1rem;
-  color: #0D1321;
+  color: #0d1321;
 }
 
 #logout_btn {
   margin: 0 1rem;
-  padding: .15rem .5rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 5px;
   border: 1px solid black;
 }
 /* Global Non-Specific */
 .btn {
   /* border-radius: 5px; */
-  padding: .2rem;
+  padding: 0.2rem;
 }
 
 /* Login Form */
@@ -34,11 +34,11 @@
 }
 
 .loginForm input {
-  margin: .25rem;
+  margin: 0.25rem;
 }
 
 .loginForm button {
-  margin: .25rem 0 0 0rem; 
+  margin: 0.25rem 0 0 0rem;
 }
 
 .loginToggle {
@@ -46,7 +46,6 @@
 }
 
 #login_cancel_btn {
-
   margin-left: 1rem;
 }
 
@@ -54,7 +53,7 @@
 .blog_form_title {
   position: relative;
   left: 50px;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 .blog_form {
   margin: 1rem;
@@ -71,9 +70,8 @@
 .form_fields {
   border-radius: 5px;
   border: 1px solid black;
-  padding: .1rem;
+  padding: 0.1rem;
 }
-
 
 .blog_form input {
   margin-left: 1rem;
@@ -84,7 +82,7 @@
   position: relative;
   left: 0px;
 }
- 
+
 /* Logout  */
 .logout-btn {
   display: inline;
@@ -101,7 +99,7 @@
   margin: 1rem;
 }
 
-.userBlogs, 
+.userBlogs,
 .userTitle {
   width: 10rem;
   display: flex;
@@ -122,11 +120,11 @@
   margin: 1rem 0;
 }
 .sb_title {
-  padding: .5rem 0 .5rem 0;
+  padding: 0.5rem 0 0.5rem 0;
 }
 
 .sb_url {
-  padding: 0 0 .5rem 0;
+  padding: 0 0 0.5rem 0;
   /* border: 1px solid red; */
 }
 
@@ -136,33 +134,31 @@
   align-items: center;
   justify-content: space-between;
   width: 6.5rem;
-  margin: .5rem 0 .5rem 0;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
-.like_btn button  {
-
+.like_btn button {
   border-radius: 5px;
   border: 1px solid black;
 }
 
 .like_btn {
-    padding: .05rem .35rem;
+  padding: 0.05rem 0.35rem;
 }
 
 .remove_btn {
-  padding: .05rem .35rem;
+  padding: 0.05rem 0.35rem;
 }
 
-
 #new_blog_button {
-  margin: .5rem 0 0 1rem;
+  margin: 0.5rem 0 0 1rem;
 }
 
 .comments {
   margin: 0 1rem;
 }
 /* Notifications */
-.errorMsg{
+.errorMsg {
   padding-left: 1rem;
   margin-bottom: 1rem;
   color: red;
@@ -170,11 +166,10 @@
   border-radius: 10px;
 }
 
-.successMsg{
+.successMsg {
   padding-left: 1rem;
   margin-bottom: 1rem;
   color: green;
   border: 5px solid green;
   border-radius: 10px;
 }
-

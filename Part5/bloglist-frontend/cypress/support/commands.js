@@ -25,21 +25,22 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('resetDbAddUser', ({ username, name, password }) => {
-  cy.request('POST', 'http://localhost:3003/api/testing/reset')
-  const user = { username, name, password }
+  cy.request('POST', 'http://localhost:3003/api/testing/reset');
+  const user = { username, name, password };
 
-  cy.request('POST', 'http://localhost:3003/api/users', user)
-  cy.visit('http://localhost:3000')
-})
+  cy.request('POST', 'http://localhost:3003/api/users', user);
+  cy.visit('http://localhost:3000');
+});
 
 Cypress.Commands.add('login', ({ username, password }) => {
   cy.request('POST', 'http://localhost:3000/api/login', {
-    username, password
+    username,
+    password,
   }).then(({ body }) => {
-    localStorage.setItem('loggedInUser', JSON.stringify(body))
-    cy.visit('http://localhost:3000')
-  })
-})
+    localStorage.setItem('loggedInUser', JSON.stringify(body));
+    cy.visit('http://localhost:3000');
+  });
+});
 
 Cypress.Commands.add('addBlog', ({ title, author, url, likes }) => {
   cy.request({
@@ -49,11 +50,11 @@ Cypress.Commands.add('addBlog', ({ title, author, url, likes }) => {
       title: title,
       author: author,
       url: url,
-      likes: likes
+      likes: likes,
     },
     headers: {
-      'Authorization': `bearer ${JSON.parse(localStorage.getItem('loggedInUser')).token}`
-    }
-  })
-  cy.visit('http://localhost:3000')
-})
+      Authorization: `bearer ${JSON.parse(localStorage.getItem('loggedInUser')).token}`,
+    },
+  });
+  cy.visit('http://localhost:3000');
+});

@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-// import style from '../style.json'
 
 const Blog = ({ blog, handleLike, handleRemove, onUserPage }) => {
-  const [ visible, setVisible ] = useState(false)
-
-  const showWhenVisible = { display: visible ? '' : 'none' }
 
   // updates style based on page
   let blogStyle
@@ -27,7 +23,6 @@ const Blog = ({ blog, handleLike, handleRemove, onUserPage }) => {
 
   const style = {
     style: {
-      // padding: '.25rem',
       margin: '1rem',
       color: '#484349'
     }

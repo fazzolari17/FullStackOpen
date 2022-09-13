@@ -9,7 +9,7 @@ function LoginForm({ handleLogin }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="loginForm">
+    <div className="LoginForm__formContainer">
       <form onSubmit={handleLogin}>
         <label>
           username

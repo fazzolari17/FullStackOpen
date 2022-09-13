@@ -10,18 +10,18 @@ function BlogForm({ handleSubmit }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="blog_form">
+    <div className="BlogForm__formContainer">
       <h3
-        className="blog_form_title"
+        className="BlogForm__formContainer__title"
         aria-label="add new blog"
       >
         Add New Blog
       </h3>
       <form onSubmit={handleSubmit}>
-        <label className="label">
+        <label className="BlogForm__formContainer__label">
           title
           <input
-            className="form_fields"
+            className="BlogForm__formContainer__form-fields"
             type="text"
             aria-label="blog title"
             data-cy="title_input"
@@ -31,10 +31,10 @@ function BlogForm({ handleSubmit }) {
           ></input>
         </label>
         <br />
-        <label className="form_fields_container">
+        <label className="BlogForm__formContainer__label">
           author
           <input
-            className="form_fields"
+            className="BlogForm__formContainer__form-fields"
             type="text"
             aria-label="blog author"
             data-cy="author_input"
@@ -44,10 +44,10 @@ function BlogForm({ handleSubmit }) {
           ></input>
         </label>
         <br />
-        <label>
+        <label className="BlogForm__formContainer__label">
           url
           <input
-            className="form_fields"
+            className="BlogForm__formContainer__form-fields"
             type="text"
             aria-label="blog url"
             data-cy="blog_url_input"

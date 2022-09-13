@@ -21,13 +21,13 @@ const SingleBlog = ({
   ));
 
   return (
-    <div className="sb_main_container">
-      <h2 className="sb_title">{`${blog.title} ${blog.author}`}</h2>
+    <div className="SingleBlog__mainContainer">
+      <h2 className="SingleBlog__mainContainer__title">{`${blog.title} ${blog.author}`}</h2>
 
-      <div className="sb_likes_container">
+      <div className="SingleBlog__mainContainer__likesContainer">
         <p>{blog.likes} Likes</p>
         <button
-          className="like_btn"
+          className="SingleBlog__mainContainer__like_btn"
           onClick={(e) => handleLike(blog.id)}
         >
           Like
@@ -35,18 +35,18 @@ const SingleBlog = ({
       </div>
 
       <a
-        className="sb_url"
+        className="SingleBlog__mainContainer__url"
         href={`https://${blog.url}`}
         target="blank"
       >{`https://${blog.url}`}</a>
-      <p className="sb_single_blog_user">
+      <p className="SingleBlog__mainContainer__user">
         Added By: {blog.user.username}
       </p>
 
       {/* Conditionally render Remove Btn  */}
       {user.id === blog.user.id && (
         <button
-          className="remove_btn"
+          className="SingleBlog__mainContainer__remove_btn"
           onClick={(e) => handleRemove(blog.id)}
         >
           Remove
@@ -55,7 +55,9 @@ const SingleBlog = ({
 
       <h4 style={{ margin: '.5rem 0' }}>Comments</h4>
       <CommentForm handleComment={handleComment} />
-      <ul className="comments">{comments}</ul>
+      <ul className="SingleBlog__mainContainer__comments">
+        {comments}
+      </ul>
     </div>
   );
 };

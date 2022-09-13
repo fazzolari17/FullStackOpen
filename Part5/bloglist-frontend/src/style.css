@@ -1,134 +1,135 @@
+/* Global Non-Specific */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-.navBar {
+/* ========== App Component ========== */
+/* =================================== */
+.App__navBar_padding {
+  padding-left: 0.5rem;
+  color: #f7f0f0;
+}
+
+.App__navBar {
   display: flex;
   align-items: center;
   background-color: grey;
   padding: 0.75rem;
 }
 
-.userLoggedIn {
+.App__navBar_userLoggedIn {
   margin: 0 1rem;
   color: #0d1321;
 }
 
-#logout_btn {
+#App__navBar_logout-btn {
   margin: 0 1rem;
   padding: 0.15rem 0.5rem;
   border-radius: 5px;
   border: 1px solid black;
 }
-/* Global Non-Specific */
-.btn {
-  /* border-radius: 5px; */
-  padding: 0.2rem;
-}
 
-/* Login Form */
-.loginForm {
+/* ========== Login Form ========== */
+/* ================================ */
+.LoginForm__formContainer {
   padding: 1rem;
 }
 
-.loginForm input {
+.LoginForm__formContainer input {
   margin: 0.25rem;
 }
 
-.loginForm button {
+.LoginForm__formContainer button {
   margin: 0.25rem 0 0 0rem;
 }
 
-.loginToggle {
+.App__Togglable__loginToggle {
   padding: 1rem;
 }
 
-#login_cancel_btn {
+#App__Togglable__login-cancel-btn {
   margin-left: 1rem;
 }
 
-/* Blog Form */
-.blog_form_title {
-  position: relative;
-  left: 50px;
-  margin-bottom: 0.5rem;
-}
-.blog_form {
-  margin: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.blog_form form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 13rem;
-}
-.form_fields {
-  border-radius: 5px;
-  border: 1px solid black;
-  padding: 0.1rem;
-}
-
-.blog_form input {
-  margin-left: 1rem;
-  justify-self: flex-end;
-}
-
-#new_blog_button {
-  position: relative;
-  left: 0px;
-}
-
-/* Logout  */
-.logout-btn {
+/* ========== Logout ========== */
+/* ============================ */
+#App__navBar_logout-btn {
   display: inline;
 }
 
-.userLoggedIn {
+.App__navBar_userLoggedIn {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
+/* ========== Blog Form ========== */
+/* =============================== */
+.BlogForm__formContainer__title {
+  position: relative;
+  left: 50px;
+  margin-bottom: 0.5rem;
+}
+.BlogForm__formContainer {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.BlogForm__formContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 13rem;
+}
+.BlogForm__formContainer__form-fields {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 0.1rem;
+}
+
+.BlogForm__formContainer input {
+  margin-left: 1rem;
+  justify-self: flex-end;
+}
+
 /* Users */
-.Users_Page_Wrapper {
+.Users__pageWrapper {
   margin: 1rem;
 }
 
-.userBlogs,
-.userTitle {
+.Users__pageWrapper__userBlogs,
+.Users__pageWrapper__userTitle {
   width: 10rem;
   display: flex;
   justify-content: space-between;
 }
 
-.userTitle {
+.Users__pageWrapper__userTitle-container {
   display: flex;
 }
 
 /* Single_Blogs */
 
-.sb_main_container {
+.SingleBlog__mainContainer {
   margin: 1rem;
 }
 
-.sb_single_blog_user {
+.SingleBlog__mainContainer__user {
   margin: 1rem 0;
 }
-.sb_title {
+.SingleBlog__mainContainer__title {
   padding: 0.5rem 0 0.5rem 0;
 }
 
-.sb_url {
+.SingleBlog__mainContainer__url {
   padding: 0 0 0.5rem 0;
   /* border: 1px solid red; */
 }
 
-.sb_likes_container {
+.SingleBlog__mainContainer__likesContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -137,16 +138,16 @@
   margin: 0.5rem 0 0.5rem 0;
 }
 
-.like_btn button {
+.SingleBlog__mainContainer__like_btn button {
   border-radius: 5px;
   border: 1px solid black;
 }
 
-.like_btn {
+.SingleBlog__mainContainer__like_btn {
   padding: 0.05rem 0.35rem;
 }
 
-.remove_btn {
+.SingleBlog__mainContainer__remove_btn {
   padding: 0.05rem 0.35rem;
 }
 
@@ -154,10 +155,12 @@
   margin: 0.5rem 0 0 1rem;
 }
 
-.comments {
+.SingleBlog__mainContainer__comments {
   margin: 0 1rem;
 }
-/* Notifications */
+
+/* ========== Notifications ========== */
+/* =================================== */
 .errorMsg {
   padding-left: 1rem;
   margin-bottom: 1rem;

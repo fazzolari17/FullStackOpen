@@ -123,39 +123,34 @@ const App = () => {
     };
 
     dispatch(addLikes(id, blogWithAddedLike));
-    dispatch(initializeState(user.token));
+    // dispatch(initializeState(user.token));
   };
 
   const addComment = (newComment) => {
     dispatch(addComments(user.token, newComment));
   };
 
-  const padding = {
-    paddingLeft: '.5rem',
-    color: '#F7F0F0',
-  };
-
   return (
     <div>
-      <nav className="navBar">
-        <Link style={padding} to="/">
+      <nav className="App__navBar">
+        <Link className="App__navBar_padding" to="/">
           Home
         </Link>
-        <Link style={padding} to="/blogs">
+        <Link className="App__navBar_padding" to="/blogs">
           Blogs
         </Link>
-        <Link style={padding} to="/users">
+        <Link className="App__navBar_padding" to="/users">
           Users
         </Link>
-        <Link style={padding} to="/login">
+        <Link className="App__navBar_padding" to="/login">
           Login
         </Link>
         {user !== null && (
-          <div className="userLoggedIn">
+          <div className="App__navBar_userLoggedIn">
             <p>{user.name} is logged in</p>
             <button
               data-cy="logout_btn"
-              id="logout_btn"
+              id="App__navBar_logout-btn"
               onClick={logout}
             >
               Logout
@@ -163,6 +158,7 @@ const App = () => {
           </div>
         )}
       </nav>
+
       {notification.isVisible && <Notification />}
       <Routes>
         <Route path="/" element={<h1>Home</h1>} />
@@ -171,9 +167,9 @@ const App = () => {
           path="/login"
           element={
             <Togglable
-              classname={'loginToggle'}
+              classname={'App__Togglable__loginToggle'}
               visible={true}
-              buttonId={'login_cancel_btn'}
+              buttonId={'App__Togglable__login-cancel-btn'}
               buttonLabel={'Login'}
             >
               <LoginForm handleLogin={handleLogin} />

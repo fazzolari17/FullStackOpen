@@ -25,7 +25,7 @@ const blogPostSlice = createSlice({
       const updatedState = state.map((item) =>
         item.id !== action.payload
           ? item
-          : { ...item, likes: item.likes + 1 }
+          : { ...item, likes: parseInt(item.likes) + 1 }
       );
       return (state = updatedState);
     },

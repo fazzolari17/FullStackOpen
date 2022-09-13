@@ -1,7 +1,12 @@
 import './style.css';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from 'react-router-dom';
 
 import blogService from './services/blogService';
 import BlogList from './components/BlogList';
@@ -15,7 +20,11 @@ import Users from './components/Users';
 import { setNotification } from './reducers/notificationReducer';
 import { toggleAdded } from './reducers/blogFormReducer';
 import { resetLoginForm } from './reducers/loginFormReducer';
-import { login, resetUserInfo, setUser } from './reducers/userReducer';
+import {
+  login,
+  resetUserInfo,
+  setUser,
+} from './reducers/userReducer';
 import {
   initializeState,
   removeAllBlogs,
@@ -24,10 +33,16 @@ import {
   addLikes,
   addComments,
 } from './reducers/blogPostListReducer';
-import { fetchUsers, resetAllUsers, setAllUsers } from './reducers/allUsers';
+import {
+  fetchUsers,
+  resetAllUsers,
+  setAllUsers,
+} from './reducers/allUsers';
 
 const App = () => {
-  const notification = useSelector((state) => state.notification);
+  const notification = useSelector(
+    (state) => state.notification
+  );
   const blogs = useSelector((state) => state.blogs);
   const blogForm = useSelector((state) => state.blogForm);
   const loginForm = useSelector((state) => state.loginForm);
@@ -39,7 +54,8 @@ const App = () => {
   useEffect(() => {
     //Get Authentication token from local storage
     const allUsersJSON = localStorage.getItem('allUsers');
-    const loggedInUserJSON = localStorage.getItem('loggedInUser');
+    const loggedInUserJSON =
+      localStorage.getItem('loggedInUser');
     if (loggedInUserJSON) {
       const user = JSON.parse(loggedInUserJSON);
       const allUsers = JSON.parse(allUsersJSON);
@@ -72,7 +88,13 @@ const App = () => {
   const addBlog = (e) => {
     e.preventDefault();
     e.target.reset();
-    dispatch(setNotification(`A new blog ${blogForm.title} by ${blogForm.author} added`, 'successMsg', '5000'));
+    dispatch(
+      setNotification(
+        `A new blog ${blogForm.title} by ${blogForm.author} added`,
+        'successMsg',
+        '5000'
+      )
+    );
     blogFormRef.current.toggleVisibility();
     dispatch(createNew({ ...blogForm, user: user.name }));
     dispatch(toggleAdded('2000'));
@@ -81,7 +103,11 @@ const App = () => {
   const removeBlog = async (id) => {
     const blog = blogs.find((blog) => blog.id === id);
 
-    if (window.confirm(`Remove ${blog.title} by ${blog.author}`) === false) {
+    if (
+      window.confirm(
+        `Remove ${blog.title} by ${blog.author}`
+      ) === false
+    ) {
       return;
     }
     dispatch(removeBlogFromState(blog.id, user.token));
@@ -127,7 +153,11 @@ const App = () => {
         {user !== null && (
           <div className="userLoggedIn">
             <p>{user.name} is logged in</p>
-            <button data-cy="logout_btn" id="logout_btn" onClick={logout}>
+            <button
+              data-cy="logout_btn"
+              id="logout_btn"
+              onClick={logout}
+            >
               Logout
             </button>
           </div>
@@ -140,7 +170,12 @@ const App = () => {
         <Route
           path="/login"
           element={
-            <Togglable classname={'loginToggle'} visible={true} buttonId={'login_cancel_btn'} buttonLabel={'Login'}>
+            <Togglable
+              classname={'loginToggle'}
+              visible={true}
+              buttonId={'login_cancel_btn'}
+              buttonLabel={'Login'}
+            >
               <LoginForm handleLogin={handleLogin} />
             </Togglable>
           }
@@ -150,8 +185,13 @@ const App = () => {
           path="/users/:id"
           element={
             <div>
-              <h4 style={{ margin: '1rem' }}>added Blogs</h4>
-              <BlogList addLike={addLike} removeBlog={removeBlog} />
+              <h4 style={{ margin: '1rem' }}>
+                added Blogs
+              </h4>
+              <BlogList
+                addLike={addLike}
+                removeBlog={removeBlog}
+              />
             </div>
           }
         />
@@ -160,7 +200,13 @@ const App = () => {
 
         <Route
           path="/blogs/:id"
-          element={<SingleBlog handleLike={addLike} handleRemove={removeBlog} handleComment={addComment} />}
+          element={
+            <SingleBlog
+              handleLike={addLike}
+              handleRemove={removeBlog}
+              handleComment={addComment}
+            />
+          }
         />
 
         <Route
@@ -168,10 +214,18 @@ const App = () => {
           element={
             <div>
               <h2 style={{ margin: '1rem' }}>Blogs</h2>
-              <Togglable visible={false} buttonId={'new_blog_button'} buttonLabel={'New Blog'} ref={blogFormRef}>
+              <Togglable
+                visible={false}
+                buttonId={'new_blog_button'}
+                buttonLabel={'New Blog'}
+                ref={blogFormRef}
+              >
                 <BlogForm handleSubmit={addBlog} />
               </Togglable>
-              <BlogList addLike={addLike} removeBlog={removeBlog} />
+              <BlogList
+                addLike={addLike}
+                removeBlog={removeBlog}
+              />
             </div>
           }
         />

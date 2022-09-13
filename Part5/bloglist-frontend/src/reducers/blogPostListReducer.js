@@ -16,19 +16,25 @@ const blogPostSlice = createSlice({
       state.push(action.payload);
     },
     removeABlog(state, action) {
-      const updatedState = state.filter((item) => item.id !== action.payload);
+      const updatedState = state.filter(
+        (item) => item.id !== action.payload
+      );
       return (state = updatedState);
     },
     updateLikes(state, action) {
       const updatedState = state.map((item) =>
-        item.id !== action.payload ? item : { ...item, likes: item.likes + 1 }
+        item.id !== action.payload
+          ? item
+          : { ...item, likes: item.likes + 1 }
       );
       return (state = updatedState);
     },
     addComment(state, action) {
       console.log(action);
       const updatedState = state.map((item) =>
-        item.id !== action.payload.blogId ? item : { ...item, comments: action.payload.comment }
+        item.id !== action.payload.blogId
+          ? item
+          : { ...item, comments: action.payload.comment }
       );
       return (state = updatedState);
     },
@@ -42,7 +48,13 @@ export const initializeState = () => {
       dispatch(setBlogs(response));
     } catch (error) {
       if (error.response.data.error === 'token expired') {
-        dispatch(setNotification(error.response.data.error, 'errorMsg', '2000'));
+        dispatch(
+          setNotification(
+            error.response.data.error,
+            'errorMsg',
+            '2000'
+          )
+        );
       }
     }
   };
@@ -78,11 +90,20 @@ export const addLikes = (id, updatedObject) => {
 
 export const addComments = (token, comment) => {
   return async (dispatch) => {
-    const response = await blogService.createComment(comment);
+    const response = await blogService.createComment(
+      comment
+    );
     dispatch(initializeState(token));
     return response;
   };
 };
 
-export const { setBlogs, clearBlogs, appendBlogs, removeABlog, updateLikes, addComment } = blogPostSlice.actions;
+export const {
+  setBlogs,
+  clearBlogs,
+  appendBlogs,
+  removeABlog,
+  updateLikes,
+  addComment,
+} = blogPostSlice.actions;
 export default blogPostSlice.reducer;

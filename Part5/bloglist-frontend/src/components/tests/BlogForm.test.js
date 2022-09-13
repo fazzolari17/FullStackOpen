@@ -19,7 +19,12 @@ beforeEach(() => {
   addBlog = jest.fn();
   mockHandler = jest.fn();
 
-  render(<BlogForm setNewBlog={mockHandler} handleSubmit={(e) => addBlog(e.preventDefault())} />);
+  render(
+    <BlogForm
+      setNewBlog={mockHandler}
+      handleSubmit={(e) => addBlog(e.preventDefault())}
+    />
+  );
   submitBtn = screen.getByRole('submit');
   titleInput = screen.getByLabelText('blog title');
   authorInput = screen.getByLabelText('blog author');
@@ -48,5 +53,7 @@ test('<BlogForm /> updates parentState and calls onSubmit', async () => {
   expect(addBlog.mock.calls).toHaveLength(1);
   expect(titleInput).toBeInTheDocument('title');
   expect(authorInput).toBeInTheDocument('author');
-  expect(urlInput).toBeInTheDocument('www.testing-library.com');
+  expect(urlInput).toBeInTheDocument(
+    'www.testing-library.com'
+  );
 });

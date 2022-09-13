@@ -7,12 +7,16 @@ const BlogList = ({ addLike, removeBlog }) => {
   const user = useSelector((state) => state.user);
   const userId = useParams();
 
-  const sortedByLikes = [...blogs].sort((a, b) => parseInt(b.likes) - parseInt(a.likes));
+  const sortedByLikes = [...blogs].sort(
+    (a, b) => parseInt(b.likes) - parseInt(a.likes)
+  );
   let filtered;
 
   userId.id === undefined
     ? (filtered = sortedByLikes.map((blog) => blog))
-    : (filtered = sortedByLikes.filter((blog) => blog.user.id === userId.id));
+    : (filtered = sortedByLikes.filter(
+        (blog) => blog.user.id === userId.id
+      ));
 
   const blogsMappedFromServer = filtered.map((blog) => (
     <Blog

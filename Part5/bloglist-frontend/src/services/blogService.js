@@ -27,7 +27,11 @@ const create = async (newObject) => {
     headers: { Authorization: globalToken },
   };
 
-  const response = await axios.post(baseUrl, newObject, config);
+  const response = await axios.post(
+    baseUrl,
+    newObject,
+    config
+  );
   return response.data;
 };
 
@@ -37,7 +41,11 @@ const update = async (id, newObject) => {
       Authorization: globalToken,
     },
   };
-  const request = await axios.put(`${baseUrl}/${id}`, newObject, config);
+  const request = await axios.put(
+    `${baseUrl}/${id}`,
+    newObject,
+    config
+  );
   return request.data;
 };
 
@@ -47,7 +55,10 @@ const remove = async (id) => {
       Authorization: globalToken,
     },
   };
-  const request = await axios.delete(`${baseUrl}/${id}`, config);
+  const request = await axios.delete(
+    `${baseUrl}/${id}`,
+    config
+  );
   return request;
 };
 
@@ -55,8 +66,19 @@ const createComment = async ({ blogId, comment }) => {
   const config = {
     headers: { Authorization: globalToken },
   };
-  const response = await axios.post(`/api/blogs/${blogId}/comments`, { blogId, comment }, config);
+  const response = await axios.post(
+    `/api/blogs/${blogId}/comments`,
+    { blogId, comment },
+    config
+  );
   return response.data;
 };
 
-export default { getAll, create, update, setToken, remove, createComment };
+export default {
+  getAll,
+  create,
+  update,
+  setToken,
+  remove,
+  createComment,
+};

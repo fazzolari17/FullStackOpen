@@ -21,13 +21,25 @@ const userSlice = createSlice({
 export const login = (username, password) => {
   return async (dispatch) => {
     try {
-      const response = await loginService.login({ username, password });
+      const response = await loginService.login({
+        username,
+        password,
+      });
       dispatch(setUser(response));
       dispatch(initializeState(response.token));
       blogService.setToken(response.token);
-      localStorage.setItem('loggedInUser', JSON.stringify(response));
+      localStorage.setItem(
+        'loggedInUser',
+        JSON.stringify(response)
+      );
     } catch (exception) {
-      dispatch(setNotification('Invalid username or password', 'errorMsg', '5000'));
+      dispatch(
+        setNotification(
+          'Invalid username or password',
+          'errorMsg',
+          '5000'
+        )
+      );
     }
   };
 };

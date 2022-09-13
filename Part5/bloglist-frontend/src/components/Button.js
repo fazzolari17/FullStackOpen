@@ -24,7 +24,11 @@ function Button({ btnStyle, text, handleClick, type }) {
 
   return (
     <>
-      <button style={setBtnStyle(btnStyle)} type={type} onClick={handleClick}>
+      <button
+        style={setBtnStyle(btnStyle)}
+        type={type}
+        onClick={handleClick}
+      >
         {text}
       </button>
     </>

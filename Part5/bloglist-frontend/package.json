@@ -32,7 +32,7 @@
     "cypress:open": "cypress open",
     "test:e2e": "cypress run",
     "format": "npx prettier --write .",
-    "prepare": "husky install"
+    "prepare": "cd ../.. && husky install Part5/bloglist-frontend/.husky"
   },
   "eslintConfig": {
     "extends": [
@@ -69,6 +69,7 @@
     "husky": "^8.0.1",
     "jest-watch-typeahead": "^0.6.5",
     "lint-staged": "^13.0.3",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "pretty-quick": "^3.1.3"
   }
 }

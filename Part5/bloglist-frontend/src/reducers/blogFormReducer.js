@@ -63,5 +63,11 @@ export const toggleAdded = (time) => {
   };
 };
 
-export const { setTitle, setAuthor, setUrl, reset, setAdded } = blogFormSlice.actions;
+export const {
+  setTitle,
+  setAuthor,
+  setUrl,
+  reset,
+  setAdded,
+} = blogFormSlice.actions;
 export default blogFormSlice.reducer;

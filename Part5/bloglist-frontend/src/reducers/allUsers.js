@@ -17,10 +17,14 @@ const allUsersSlice = createSlice({
 export const fetchUsers = () => {
   return async (dispatch) => {
     const response = await userService.getAll();
-    localStorage.setItem('allUsers', JSON.stringify(response));
+    localStorage.setItem(
+      'allUsers',
+      JSON.stringify(response)
+    );
     dispatch(setAllUsers(response));
   };
 };
 
-export const { setAllUsers, resetAllUsers } = allUsersSlice.actions;
+export const { setAllUsers, resetAllUsers } =
+  allUsersSlice.actions;
 export default allUsersSlice.reducer;

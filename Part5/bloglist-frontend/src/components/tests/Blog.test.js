@@ -24,7 +24,13 @@ beforeEach(async () => {
   };
   user = userEvent.setup();
   mockHandler = jest.fn();
-  render(<Blog blog={blog} handleLike={mockHandler} handleRemove={mockHandler} />);
+  render(
+    <Blog
+      blog={blog}
+      handleLike={mockHandler}
+      handleRemove={mockHandler}
+    />
+  );
 
   title = screen.getByText('title');
   author = screen.getByText('author');

@@ -36,5 +36,6 @@ export const resetLoginForm = () => {
   };
 };
 
-export const { setUsername, setPassword, resetForm } = loginFormSlice.actions;
+export const { setUsername, setPassword, resetForm } =
+  loginFormSlice.actions;
 export default loginFormSlice.reducer;

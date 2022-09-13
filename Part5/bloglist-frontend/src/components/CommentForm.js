@@ -23,7 +23,10 @@ const CommentForm = ({ handleComment }) => {
 
   return (
     <>
-      <form className="comment_form" onSubmit={(e) => handleSubmit(e)}>
+      <form
+        className="comment_form"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <input style={style[1]} {...comment}></input>
         <button style={style[2]} type="submit">
           Add Comment

@@ -12,10 +12,12 @@ export const ALL_BOOKS = gql`
 
 const Books = (props) => {
   const result = useQuery(ALL_BOOKS);
+
   if (!props.show) {
     return null;
   }
 
+  // console.log(result.data.allBooks)
   const books = !result ? null : result.data.allBooks;
 
   return (

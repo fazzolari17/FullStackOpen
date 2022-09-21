@@ -10,7 +10,6 @@ const jwt = require('jsonwebtoken')
 
 const Author = require('./models/author')
 const Book = require('./models/book')
-const book = require('./models/book')
 const User = require('./models/user')
 // Need to move to environment file
 const JWT_SECRET = 'NEED_HERE_A_SECRET_KEY'

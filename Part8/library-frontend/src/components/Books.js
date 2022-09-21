@@ -1,24 +1,33 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { ALL_BOOKS, ADD_BOOK } from '../queries';
+import { v4 as uuidv4 } from 'uuid';
 
-export const ALL_BOOKS = gql`
-  query {
-    allBooks {
-      title
-      author
-      published
-    }
-  }
-`;
+const Books = ({ setGenreFilter, genreFilter, show }) => {
+  const result = useQuery(ALL_BOOKS, {
+    variables: {
+      genre:
+        genreFilter === 'all' ? undefined : genreFilter,
+    },
+    refetchQueries: [
+      { query: ALL_BOOKS },
+      { query: ADD_BOOK },
+    ],
+  });
 
-const Books = (props) => {
-  const result = useQuery(ALL_BOOKS);
-
-  if (!props.show) {
+  if (!show) {
     return null;
   }
 
-  // console.log(result.data.allBooks)
-  const books = !result ? null : result.data.allBooks;
+  let books =
+    result.data === undefined ? [] : result.data.allBooks;
+
+  let genres =
+    result.data === undefined
+      ? []
+      : result.data.allBooks
+          .map((item) => item.genres)
+          .flat();
+  genres = [...new Set(genres)];
 
   return (
     <div>
@@ -34,12 +43,23 @@ const Books = (props) => {
           {books.map((a) => (
             <tr key={a.title}>
               <td>{a.title}</td>
-              <td>{a.author}</td>
+              <td>{a.author.name}</td>
               <td>{a.published}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      {genres.map((genre) => (
+        <button
+          key={uuidv4()}
+          onClick={() => setGenreFilter(genre)}
+        >
+          {genre}
+        </button>
+      ))}
+      <button onClick={() => setGenreFilter('all')}>
+        ALL
+      </button>
     </div>
   );
 };

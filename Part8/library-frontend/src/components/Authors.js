@@ -1,28 +1,8 @@
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import { useField } from '../hooks/useField';
+import { ALL_AUTHORS, EDIT_AUTHOR } from '../queries';
 
-const ALL_AUTHORS = gql`
-  query {
-    allAuthors {
-      name
-      born
-      bookCount
-      id
-    }
-  }
-`;
-
-const EDIT_AUTHOR = gql`
-  mutation EditAuthor($name: String!, $born: Int!) {
-    editAuthor(name: $name, born: $born) {
-      name
-      born
-    }
-  }
-`;
-
-const Authors = (props) => {
+const Authors = ({ show }) => {
   const result = useQuery(ALL_AUTHORS);
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
     refetchQueries: [{ query: ALL_AUTHORS }],
@@ -33,7 +13,7 @@ const Authors = (props) => {
 
   const authors = result.data ? result.data.allAuthors : [];
 
-  if (!props.show) {
+  if (!show) {
     return null;
   }
 

@@ -1,27 +1,62 @@
-import { gql } from '@apollo/client';
+import { gql, useSubscription } from '@apollo/client';
 
-export const ALL_BOOKS = gql`
-  query ($genre: String) {
-    allBooks(genre: $genre) {
-      title
-      author {
-        name
-      }
-      published
-      genres
-    }
-  }
-`;
-
-export const ALL_AUTHORS = gql`
-  query {
-    allAuthors {
+export const BOOK_DETAILS = gql`
+  fragment BookDetails on Book {
+    title
+    published
+    genres
+    id
+    author {
       name
       born
       bookCount
       id
     }
   }
+`;
+
+export const AUTHORS_DETAILS = gql`
+  fragment AuthorDetails on Author {
+    name
+    born
+    bookCount
+    id
+  }
+`;
+
+export const BOOK_ADDED = gql`
+  subscription {
+    bookAdded {
+      title
+      published
+      genres
+      id
+      author {
+        name
+        born
+        bookCount
+        id
+      }
+    }
+  }
+`;
+
+export const ALL_BOOKS = gql`
+  query ($genre: String) {
+    allBooks(genre: $genre) {
+      ...BookDetails
+    }
+  }
+  ${BOOK_DETAILS}
+`;
+
+export const ALL_AUTHORS = gql`
+  query {
+    allAuthors {
+      ...AuthorDetails
+    }
+  }
+  ${AUTHORS_DETAILS}
 `;
 
 export const EDIT_AUTHOR = gql`

@@ -22,9 +22,6 @@ const NewBook = ({ show, setPage }) => {
     addBook({
       variables: { title, author, published, genres },
     });
-    console.log('add book...', {
-      variables: { title, author, published, genres },
-    });
 
     setTitle('');
     setPublished('');

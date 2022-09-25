@@ -20,6 +20,7 @@ const typeDef = gql`
 
   type Query {
     authorCount: Int!
+
     allAuthors: [Author]
   }
 
@@ -32,21 +33,16 @@ const resolvers = {
   Query: {
     authorCount: async () => await Author.countDocuments(),
     allAuthors: async (root, args) => {
-      const author = await Author.find({})
-      const books = await Book.find({}).populate('author')
-
-      const response = author.map((author) => {
-        const booksAuthored = books.filter(
-          (book) => book.author.name === author.name
-        )
+      const authors = await Author.find({})
+      const allAuthors = authors.map((author) => {
         return {
           id: author._id,
           name: author.name,
           born: author.born,
-          bookCount: booksAuthored.length,
+          bookCount: author.books.length,
         }
       })
-      return response
+      return allAuthors
     },
   },
   Mutation: {

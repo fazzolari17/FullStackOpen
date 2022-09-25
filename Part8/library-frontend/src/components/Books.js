@@ -13,7 +13,6 @@ const Books = ({ setGenreFilter, genreFilter, show }) => {
       { query: ADD_BOOK },
     ],
   });
-
   if (!show) {
     return null;
   }

@@ -4,6 +4,7 @@ const Author = require('../models/author')
 const Book = require('../models/book')
 
 const { PubSub } = require('graphql-subscriptions')
+const book = require('../models/book')
 const pubsub = new PubSub()
 
 const typeDef = gql`
@@ -95,7 +96,9 @@ const resolvers = {
       }
 
       try {
+        // Search to see if author exists in DB
         const author = await Author.findOne({ name: args.author })
+        // create new author if one does not exist
         if (!author) {
           const author = new Author({ name: args.author })
           await author.save()
@@ -103,6 +106,10 @@ const resolvers = {
 
         const authorInDb = await Author.findOne().where({ name: args.author })
         const book = new Book({ ...args, author: authorInDb })
+        const authorToUpdate = await Author.findOneAndUpdate(
+          { name: args.author },
+          { $push: { books: book._id } }
+        )
 
         const newBook = await book.save()
 

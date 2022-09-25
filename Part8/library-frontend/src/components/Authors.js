@@ -12,7 +12,6 @@ const Authors = ({ show }) => {
   const born = useField('text');
 
   const authors = result.data ? result.data.allAuthors : [];
-
   if (!show) {
     return null;
   }

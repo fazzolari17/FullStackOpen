@@ -10,6 +10,7 @@ const typeDef = gql`
   type Subscription {
     bookAdded: Book!
   }
+
   type Book {
     title: String!
     author: Author!

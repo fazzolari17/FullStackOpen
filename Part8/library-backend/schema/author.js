@@ -3,7 +3,14 @@ const mongoose = require('mongoose')
 const Author = require('../models/author')
 const Book = require('../models/book')
 
+const { PubSub } = require('graphql-subscriptions')
+const pubsub = new PubSub()
+
 const typeDef = gql`
+  type Subscription {
+    authorEdited: Author!
+  }
+
   type Author {
     name: String!
     bookCount: Int
@@ -53,15 +60,22 @@ const resolvers = {
       if (!context.currentUser) {
       }
       try {
-        return await Author.findOneAndUpdate(
+        const editedAuthor = await Author.findOneAndUpdate(
           { name: args.name },
           { $set: { born: args.born } }
         )
+        pubsub.publish('AUTHOR_EDITED', { authorEdited: editedAuthor })
+        return editedAuthor
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
+    },
+  },
+  Subscription: {
+    authorEdited: {
+      subscribe: () => pubsub.asyncIterator(['AUTHOR_EDITED']),
     },
   },
 }

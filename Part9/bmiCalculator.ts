@@ -1,10 +1,10 @@
-const height = parseInt(process.argv[2]);
-const weight = parseInt(process.argv[3]);
+// const height = parseInt(process.argv[2]);
+// const weight = parseInt(process.argv[3]);
 
 const calculateBmi = (
   height: number,
   weight: number
-): string => {
+): any => {
   height = (height / 100) ^ 2;
   const result = weight / height;
 
@@ -27,4 +27,5 @@ const calculateBmi = (
   }
 };
 
-console.log(calculateBmi(height, weight));
+export { calculateBmi };
+// console.log(calculateBmi(height, weight));

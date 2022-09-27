@@ -1,16 +1,6 @@
-const week = (args: string[]) => {
-  const argArray: number[] = [];
-  for (let i = 3; i < process.argv.length; i++) {
-    argArray.push(parseInt(process.argv[i]));
-  }
-  return argArray;
-};
-
-const target = parseInt(process.argv[2]);
-
-const exerciseCalculator = (
-  week: number[],
-  target: number
+export const exerciseCalculator = (
+  target: number,
+  week: number[]
 ): object => {
   const daysTrained: number[] = week.filter(
     (days) => days > 0
@@ -31,7 +21,7 @@ const exerciseCalculator = (
   const average: number = totalHrs / periodLength;
 
   const rating: number =
-    average === target
+    average >= target
       ? 3
       : average < target
       ? 2
@@ -39,7 +29,7 @@ const exerciseCalculator = (
       ? 1
       : NaN;
 
-  let ratingDescription: any = rating;
+  let ratingDescription: unknown = rating;
 
   switch (ratingDescription) {
     case 3:
@@ -67,12 +57,3 @@ const exerciseCalculator = (
     average,
   };
 };
-
-console.log(exerciseCalculator(week(process.argv), target));
-// { periodLength: 7,
-//   trainingDays: 5,
-//   success: false,
-//   rating: 2,
-//   ratingDescription: 'not too bad but could be better',
-//   target: 2,
-//   average: 1.9285714285714286 }

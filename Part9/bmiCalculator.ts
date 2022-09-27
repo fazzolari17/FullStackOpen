@@ -4,7 +4,7 @@
 const calculateBmi = (
   height: number,
   weight: number
-): any => {
+): string => {
   height = (height / 100) ^ 2;
   const result = weight / height;
 
@@ -24,6 +24,8 @@ const calculateBmi = (
     return 'Obese (Class II)';
   } else if (result > 40) {
     return 'Obese (Class III)';
+  } else {
+    return 'Something Is Wrong';
   }
 };
 

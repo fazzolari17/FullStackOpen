@@ -1,13 +1,16 @@
 import express = require('express');
 const app = express();
+import { bmiRouter } from './controllers/bmi';
+import { exercisesRouter } from './controllers/exercises';
 
-const bmiRouter = require('./controllers/bmi');
+app.use(express.json());
 
-app.get('/hello', (_req: any, res: any) => {
+app.get('/hello', (_req, res) => {
   res.send('Hello');
 });
 
 app.use('/bmi', bmiRouter);
+app.use('/exercise', exercisesRouter);
 
 const PORT = 3005;
 

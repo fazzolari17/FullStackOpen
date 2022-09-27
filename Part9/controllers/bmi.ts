@@ -1,9 +1,11 @@
-const bmiRouter = require('express').Router();
+import * as express from 'express';
 import { calculateBmi } from '../bmiCalculator';
 
-bmiRouter.get('/', (req: any, res: any) => {
-  const height: number = parseInt(req.query.height);
-  const weight: number = parseInt(req.query.weight);
+const bmiRouter = express.Router();
+
+bmiRouter.get('/', (req, res) => {
+  const height = Number(req.query.height);
+  const weight = Number(req.query.weight);
 
   const bmi = calculateBmi(height, weight);
 
@@ -12,7 +14,7 @@ bmiRouter.get('/', (req: any, res: any) => {
       error: 'malformatted parameters',
     });
   } else {
-    res.send({
+    res.status(401).send({
       weight,
       height,
       bmi,
@@ -20,4 +22,4 @@ bmiRouter.get('/', (req: any, res: any) => {
   }
 });
 
-module.exports = bmiRouter;
+export { bmiRouter };

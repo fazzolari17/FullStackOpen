@@ -1,6 +1,5 @@
-interface HeaderProps {
-  courseName: string;
-}
+import { HeaderProps } from "../types";
+
 const Header = ({ courseName }: HeaderProps): JSX.Element => {
   return (
     <>

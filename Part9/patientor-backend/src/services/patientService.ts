@@ -1,5 +1,6 @@
 import data from '../../data/patients.json';
 import {
+  // Patient,
   PatientEntry,
   NonSensitivePatientEntries,
   NewPatientEntry,
@@ -7,6 +8,11 @@ import {
 import { v1 as uuid } from 'uuid';
 
 const patientData: Array<PatientEntry> = data;
+
+const findPatient = (id: string): PatientEntry | unknown => {
+  const patientFound = data.find((patient) => patient.id === id);
+  return { ...patientFound, entries: [] };
+};
 
 const addNewPatient = (entry: NewPatientEntry): PatientEntry => {
   console.log(entry);
@@ -20,13 +26,16 @@ const addNewPatient = (entry: NewPatientEntry): PatientEntry => {
 };
 
 const getNonSensitivePatientEntries = (): NonSensitivePatientEntries[] => {
-  return patientData.map(({ id, name, dateOfBirth, gender, occupation }) => ({
-    id,
-    name,
-    dateOfBirth,
-    gender,
-    occupation,
-  }));
+  return patientData.map(
+    ({ id, name, dateOfBirth, gender, occupation, entries }) => ({
+      id,
+      name,
+      dateOfBirth,
+      gender,
+      occupation,
+      entries,
+    })
+  );
 };
 
 const getPatientEntries = (): Array<PatientEntry> => {
@@ -37,4 +46,5 @@ export default {
   getPatientEntries,
   getNonSensitivePatientEntries,
   addNewPatient,
+  findPatient,
 };

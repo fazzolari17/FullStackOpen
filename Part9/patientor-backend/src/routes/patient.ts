@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express from 'express';
 import patientService from '../services/patientService';
 import utils from '../utils';
 
 const patientRouter = express.Router();
+
+patientRouter.get('/:id', (req, res) => {
+  res.send(patientService.findPatient(req.params.id));
+});
 
 patientRouter.get('/', (_req, res) => {
   res.send(patientService.getNonSensitivePatientEntries());
@@ -11,6 +14,7 @@ patientRouter.get('/', (_req, res) => {
 
 patientRouter.post('/', (req, res) => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const newPatientEntry = utils.toNewPatientEntry(req.body);
     const addedEntry = patientService.addNewPatient(newPatientEntry);
     res.json(addedEntry);

@@ -26,6 +26,6 @@ export interface PatientEntry {
 }
 
 // May not be needed
-export type Patient = Omit<PatientEntry, 'ssn' | 'entries'>;
+export type Patient = Omit<PatientEntry, 'entries'>;
 
 export type NonSensitivePatientEntries = Omit<PatientEntry, 'ssn'>;

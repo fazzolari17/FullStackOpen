@@ -55,13 +55,6 @@ const Part = ({ part }: PartProps) => {
     default:
       return assertNever(part);
   }
-  // return (
-  //   <>
-  //     {part.name}
-  //     {part.exerciseCount}
-  //     {part.
-  //   </>
-  // );
 };
 
 export default Part;

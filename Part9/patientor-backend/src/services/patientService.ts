@@ -1,6 +1,6 @@
 import data from '../../data/patients.json';
 import {
-  // Patient,
+  Patient,
   PatientEntry,
   NonSensitivePatientEntries,
   NewPatientEntry,
@@ -38,8 +38,18 @@ const getNonSensitivePatientEntries = (): NonSensitivePatientEntries[] => {
   );
 };
 
-const getPatientEntries = (): Array<PatientEntry> => {
-  return patientData;
+const getPatientEntries = (): Patient[] => {
+  return patientData.map(
+    ({ id, name, dateOfBirth, gender, occupation, entries, ssn }) => ({
+      id,
+      name,
+      dateOfBirth,
+      gender,
+      occupation,
+      entries,
+      ssn,
+    })
+  );
 };
 
 export default {

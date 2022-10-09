@@ -4,12 +4,10 @@ import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
 import { useStateValue } from "../state";
 import { Patient } from "../types";
+import { updatePatient } from "../state/reducer";
 
-// import FemaleIcon from '@mui/icons-material/Female';
-// import {MaleIcon} from '@mui/icons-material/Male';
 import { IconContext } from "react-icons";
 import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
-// import { Icon } from '@material-ui/core';
 
 const PatientPage = () => {
   const paramId = useParams().id;
@@ -21,9 +19,8 @@ const PatientPage = () => {
       const response = await axios.get<Patient>(
         `${apiBaseUrl}/patients/${patientId}`
       );
-
-      dispatch({ type: "UPDATE_PATIENT", payload: response.data });
       found = response.data;
+      dispatch(updatePatient(response.data));
     } catch (error) {
       console.error("STATUS", error.message);
     }
@@ -50,8 +47,6 @@ const PatientPage = () => {
 
   return (
     <>
-      {/* <Divider hidden /> */}
-
       <h3>
         {found.name} {genderIcon}
       </h3>

@@ -20,11 +20,6 @@ const parseOccupation = (occupation: unknown): string => {
   return occupation;
 };
 
-// const isSsn = (ssn: string): boolean => {
-
-//   return Boolean(ssn.length);
-// };
-
 const parseSsn = (ssn: unknown): string => {
   if (!ssn || !isString(ssn)) {
     throw new Error(`SSN is missing or is incorrect`);

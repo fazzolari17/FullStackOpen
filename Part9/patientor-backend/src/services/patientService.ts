@@ -1,4 +1,4 @@
-import data from '../../data/patients.json';
+import data from '../../data/patients';
 import {
   Patient,
   PatientEntry,
@@ -11,7 +11,7 @@ const patientData: Array<PatientEntry> = data;
 
 const findPatient = (id: string): PatientEntry | unknown => {
   const patientFound = data.find((patient) => patient.id === id);
-  return { ...patientFound, entries: [] };
+  return { ...patientFound };
 };
 
 const addNewPatient = (entry: NewPatientEntry): PatientEntry => {

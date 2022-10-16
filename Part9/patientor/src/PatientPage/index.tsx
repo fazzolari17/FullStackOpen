@@ -12,7 +12,7 @@ import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
 const PatientPage = () => {
   const paramId = useParams().id;
 
-  const [{ patients }, dispatch] = useStateValue();
+  const [{ patients, diagnoses }, dispatch] = useStateValue();
 
   const fetchPatientData = async (patientId: string) => {
     try {
@@ -43,20 +43,30 @@ const PatientPage = () => {
     found.gender === "male" ? <BsGenderMale /> : <BsGenderFemale />;
 
   const genderIcon = (
-    <IconContext.Provider value={{ color: "red", size: "1.2rem" }}>
+    <IconContext.Provider value={{ color: "red" }}>
       {genderIconDecider}
     </IconContext.Provider>
   );
+
   if (found.entries === undefined) {
     throw new Error("No Entries Found");
   }
+
   const entries: Entry = found.entries[0];
-  let codes; //: JSX.Element[] | [] = [];
+  let codes: JSX.Element[] | [] = [];
 
   if (entries === undefined) {
     codes = [];
   } else if (entries.diagnosisCodes !== undefined) {
-    codes = entries.diagnosisCodes?.map((item) => <li key={item}>{item}</li>);
+    codes = entries.diagnosisCodes?.map((item: string) => {
+      const O = Object.values(diagnoses);
+      const description = O.find((diagnoses) => diagnoses.code === item);
+      if (description === undefined) {
+        return <li key={item}>{`${item} - Diagnoses Name Not Found`}</li>;
+      } else {
+        return <li key={item}>{`${item} - ${description.name}`}</li>;
+      }
+    });
   }
 
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { nanoid } from "nanoid";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
 import { useStateValue } from "../state";
@@ -8,10 +9,10 @@ import { updatePatient } from "../state/reducer";
 
 import { IconContext } from "react-icons";
 import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
-
+import EntryDetails from "../components/EntryDetails";
+import { Stack } from "@mui/material";
 const PatientPage = () => {
   const paramId = useParams().id;
-
   const [{ patients, diagnoses }, dispatch] = useStateValue();
 
   const fetchPatientData = async (patientId: string) => {
@@ -54,6 +55,7 @@ const PatientPage = () => {
 
   const entries: Entry = found.entries[0];
   let codes: JSX.Element[] | [] = [];
+  let entry: JSX.Element[] | [] = [];
 
   if (entries === undefined) {
     codes = [];
@@ -61,13 +63,17 @@ const PatientPage = () => {
     codes = entries.diagnosisCodes?.map((item: string) => {
       const O = Object.values(diagnoses);
       const description = O.find((diagnoses) => diagnoses.code === item);
-      if (description === undefined) {
-        return <li key={item}>{`${item} - Diagnoses Name Not Found`}</li>;
-      } else {
-        return <li key={item}>{`${item} - ${description.name}`}</li>;
-      }
+      return description === undefined ? (
+        <li key={item}>{`${item} - Diagnoses Name Not Found`}</li>
+      ) : (
+        <li key={item}>{`${item} - ${description.name}`}</li>
+      );
     });
   }
+
+  entry = found.entries.map((entry: Entry) => (
+    <EntryDetails key={nanoid()} entry={entry}></EntryDetails>
+  ));
 
   return (
     <>
@@ -77,8 +83,8 @@ const PatientPage = () => {
       <p>SSN: {found.ssn}</p>
       <p>OCCUPATION: {found.occupation}</p>
       <p>Entries</p>
-      {entries !== undefined ? <p>{entries.description}</p> : <></>}
       <ul>{codes}</ul>
+      <Stack spacing={3}>{entry}</Stack>
     </>
   );
 };

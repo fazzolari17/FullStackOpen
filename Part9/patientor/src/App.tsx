@@ -24,7 +24,6 @@ const App = () => {
         const { data: diagnoses } = await axios.get<Diagnosis[]>(
           `${apiBaseUrl}/diagnoses`
         );
-        console.log("USE_EFFECT", diagnoses);
         dispatch(setDiagnoses(diagnoses));
       } catch (error) {
         console.log(error);

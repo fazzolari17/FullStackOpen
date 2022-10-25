@@ -1,38 +1,65 @@
-interface Discharge {
-  date: string;
-  criteria: string;
+export interface Diagnoses {
+  code: string;
+  name: string;
+  latin?: string;
 }
 
-interface SickLeave {
-  startDate: string;
-  endDate: string;
-}
+export type Entry =
+  | HospitalEntry
+  | OccupationalHealthcareEntry
+  | HealthCheckEntry;
 
-type Entry = MainEntry | EmployerNameEntry | HealthCheckRating;
-
-export interface MainEntry {
+export interface BaseEntry {
   id: string;
-  date: string;
-  type: string;
-  specialist: string;
   description: string;
-  diagnosisCodes?: string[];
-  sickLeave?: SickLeave;
-  discharge?: Discharge;
+  date: string;
+  specialist: string;
+  diagnosisCodes?: Array<Diagnoses['code']>;
+  sickLeave?: {
+    startDate: string;
+    endDate: string;
+  };
 }
 
-export interface EmployerNameEntry extends MainEntry {
+export interface HospitalEntry extends BaseEntry {
+  type: 'Hospital';
+  discharge: {
+    date: string;
+    criteria: string;
+  };
+}
+
+export interface OccupationalHealthcareEntry extends BaseEntry {
+  type: 'OccupationalHealthcare';
   employerName: string;
+  sickLeave?: {
+    startDate: string;
+    endDate: string;
+  };
 }
 
-export interface HealthCheckRating extends MainEntry {
-  healthCheckRating: number;
+export interface HealthCheckEntry extends BaseEntry {
+  type: 'HealthCheck';
+  healthCheckRating: HealthCheckRating;
 }
 
 export enum Gender {
   Male = 'male',
   Female = 'female',
   Other = 'other',
+}
+
+export enum HealthCheckRating {
+  'Healthy' = 0,
+  'LowRisk' = 1,
+  'HighRick' = 2,
+  'CriticalRisk' = 3,
+}
+
+export enum TypeSet {
+  Hospital = 'Hospital',
+  OccupationalHealthcare = 'OccupationalHealthcare',
+  HealthCheck = 'HealthCheck',
 }
 
 export type NewPatientEntry = Omit<PatientEntry, 'id'>;
@@ -50,9 +77,14 @@ export interface PatientEntry {
   ssn: string;
   gender: string;
   occupation: string;
-  entries?: Entry[];
+  entries: Entry[];
 }
 
+export type AddNewPatient = Omit<PatientEntry, 'id' | 'entries'>;
 export type Patient = Omit<PatientEntry, 'entries'>;
-
 export type NonSensitivePatientEntries = Omit<PatientEntry, 'ssn'>;
+
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+export type NewEntry = UnionOmit<Entry, 'id'>;

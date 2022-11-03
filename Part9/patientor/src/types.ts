@@ -1,8 +1,3 @@
-interface Discharge {
-  date: string;
-  criteria: string;
-}
-
 export interface Diagnosis {
   code: string;
   name: string;
@@ -15,7 +10,6 @@ export type Entry =
   | HealthCheckEntry;
 
 export interface BaseEntry {
-  // map(arg0: (item: Patient) => Patient): MainEntry;
   id: string;
   description: string;
   date: string;
@@ -25,9 +19,10 @@ export interface BaseEntry {
 
 export interface HospitalEntry extends BaseEntry {
   type: "Hospital";
-  startDate: string;
-  endDate: string;
-  discharge: Discharge;
+  discharge: {
+    date: string;
+    criteria: string;
+  };
 }
 
 export interface OccupationalHealthcareEntry extends BaseEntry {
@@ -38,6 +33,18 @@ export interface OccupationalHealthcareEntry extends BaseEntry {
 export interface HealthCheckEntry extends BaseEntry {
   type: "HealthCheck";
   healthCheckRating: healthCheckRating;
+}
+
+export interface NewEntry {
+  type: "Hospital";
+  description: string;
+  date: string;
+  specialist: string;
+  diagnosesCodes: Array<Diagnosis["code"]>;
+  discharge: {
+    date: string;
+    criteria: string;
+  };
 }
 
 export enum Gender {
@@ -60,5 +67,5 @@ export interface Patient {
   gender: Gender;
   ssn: string;
   dateOfBirth?: string;
-  entries?: Entry[];
+  entries: Entry[];
 }

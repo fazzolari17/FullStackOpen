@@ -1,4 +1,4 @@
-import { NewPatientEntry, Gender, NewEntry } from './types';
+import { NewPatientEntry, Gender, NewEntry, Diagnoses } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isGender = (param: any): param is Gender => {
@@ -31,16 +31,19 @@ const isDateOfBirth = (date: string): boolean => {
   return Boolean(Date.parse(date));
 };
 
-const parseDateOfBirth = (dateOfBirth: unknown): string => {
+const parseDateOfBirth = (
+  description: string,
+  dateOfBirth: unknown
+): string => {
   if (!dateOfBirth || !isString(dateOfBirth) || !isDateOfBirth(dateOfBirth)) {
-    throw new Error(`Incorrect or missing date of birth: ${dateOfBirth}`);
+    throw new Error(`Incorrect or missing ${description}: ${dateOfBirth}`);
   }
   return dateOfBirth;
 };
 
 const parseString = (description: string, text: unknown): string => {
   if (!text || !isString(text)) {
-    throw new Error(`Incorrect or missing name ${description}`);
+    throw new Error(`Incorrect or missing ${description}`);
   }
 
   return text;
@@ -67,7 +70,7 @@ const toNewPatientEntry = ({
 }: Fields): NewPatientEntry => {
   const newEntry: NewPatientEntry = {
     name: parseString('name', name),
-    dateOfBirth: parseDateOfBirth(dateOfBirth),
+    dateOfBirth: parseDateOfBirth('Date of Birth', dateOfBirth),
     ssn: parseSsn(ssn),
     occupation: parseOccupation(occupation),
     gender: parseGender(gender),
@@ -86,6 +89,7 @@ interface BaseEntry {
   date: unknown;
   specialist: unknown;
   description: unknown;
+  diagnosesCodes?: unknown;
 }
 
 interface UtilsHospitalEntry extends BaseEntry {
@@ -113,6 +117,26 @@ const parseHealthCheckRating = (healthCheckRating: unknown): number => {
   return healthCheckRating;
 };
 
+const parseDiagnoses = (diagnoses: unknown): Array<Diagnoses['code']> => {
+  console.log('PARSE', diagnoses);
+  const codes: Array<Diagnoses['code']> = [];
+  if (!diagnoses) {
+    throw new Error('Incorrect or missing diagnoses information');
+  }
+  // const dataCodes: Array<Diagnoses['code']> = typeof diagnoses === 'object' ? diagnoses : JSON.parse(diagnoses);
+  if (!Array.isArray(diagnoses)) {
+    throw new Error('Diagnoses Codes needs to be an Array');
+  }
+
+  diagnoses.forEach((code) => {
+    if (!isString(code)) {
+      throw new Error('Code needs to be an Array of stings');
+    }
+    codes.push(code);
+  });
+  return codes;
+};
+
 const toNewEntry = (entry: EntryFields): NewEntry => {
   let newEntry: NewEntry;
 
@@ -125,33 +149,39 @@ const toNewEntry = (entry: EntryFields): NewEntry => {
   switch (entry.type) {
     case 'Hospital':
       return {
-        date: parseDateOfBirth(entry.date),
+        date: parseDateOfBirth('Hospital Entry Date', entry.date),
         type: 'Hospital',
         specialist: parseString('specialist', entry.specialist),
         description: parseString('description', entry.description),
+        diagnosisCodes: parseDiagnoses(entry.diagnosesCodes),
         discharge: {
-          date: parseDateOfBirth(entry.discharge?.date),
-          criteria: parseString('criteria', entry.discharge?.criteria),
+          date: parseDateOfBirth(
+            'Hospital Discharge date',
+            entry.discharge.date
+          ),
+          criteria: parseString('criteria', entry.discharge.criteria),
         },
       };
       return newEntry;
       break;
     case 'OccupationalHealthcare':
       newEntry = {
-        date: parseDateOfBirth(entry.date),
+        date: parseDateOfBirth('Occupational Date', entry.date),
         type: 'OccupationalHealthcare',
         specialist: parseString('specialist', entry.specialist),
         description: parseString('description', entry.description),
+        diagnosisCodes: parseDiagnoses(entry.diagnosesCodes),
         employerName: parseString('employer name', entry.employerName),
       };
       return newEntry;
       break;
     case 'HealthCheck':
       newEntry = {
-        date: parseDateOfBirth(entry.date),
+        date: parseDateOfBirth('HealthCheck Date', entry.date),
         type: 'HealthCheck',
         specialist: parseString('specialist', entry.specialist),
         description: parseString('description', entry.description),
+        diagnosisCodes: parseDiagnoses(entry.diagnosesCodes),
         healthCheckRating: parseHealthCheckRating(entry.healthCheckRating),
       };
       return newEntry;

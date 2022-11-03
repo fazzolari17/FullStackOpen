@@ -1,5 +1,5 @@
 import { State } from "./state";
-import { Diagnosis, Patient } from "../types";
+import { Diagnosis, Patient, Entry } from "../types";
 
 export type Action =
   | {
@@ -17,7 +17,43 @@ export type Action =
   | {
       type: "SET_DIAGNOSES";
       payload: Diagnosis[];
+    }
+  | {
+      type: "ADD_ENTRY";
+      payload: {
+        id: string;
+        entry: Entry;
+      };
+    }
+  | {
+      type: "SET_PATIENT_DIAGNOSES";
+      payload: Array<Diagnosis["code"]>;
+    }
+  | {
+      type: "RESET_PATIENT_DIAGNOSES";
     };
+
+export const resetPatientDiagnoses = () => {
+  return {
+    type: "RESET_PATIENT_DIAGNOSES",
+  };
+};
+
+export const setPatientDiagnoses = (
+  patientDiagnoses: Array<Diagnosis["code"]>
+): Action => {
+  return {
+    type: "SET_PATIENT_DIAGNOSES",
+    payload: patientDiagnoses,
+  };
+};
+
+export const addEntry = (id: string, entry: Entry): Action => {
+  return {
+    type: "ADD_ENTRY",
+    payload: { id, entry },
+  };
+};
 
 export const setDiagnoses = (diagnoses: Diagnosis[]): Action => {
   return {
@@ -81,7 +117,32 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         diagnoses: action.payload,
       };
-
+    case "ADD_ENTRY":
+      return {
+        ...state,
+        patients: {
+          ...state.patients,
+          [action.payload.id]: {
+            ...state.patients[action.payload.id],
+            entries: [
+              ...state.patients[action.payload.id].entries,
+              action.payload.entry,
+            ],
+          },
+        },
+      };
+    case "SET_PATIENT_DIAGNOSES":
+      return {
+        ...state,
+        patientDiagnosesCodes: action.payload,
+      };
+      break;
+    case "RESET_PATIENT_DIAGNOSES":
+      return {
+        ...state,
+        patientDiagnosesCodes: [],
+      };
+      break;
     default:
       return state;
   }

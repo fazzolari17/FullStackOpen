@@ -6,11 +6,13 @@ import { Action } from "./reducer";
 export type State = {
   diagnoses: Diagnosis[];
   patients: { [id: string]: Patient };
+  patientDiagnosesCodes: Array<Diagnosis["code"]>;
 };
 
 const initialState: State = {
   patients: {},
   diagnoses: [],
+  patientDiagnosesCodes: [],
 };
 
 export const StateContext = createContext<[State, React.Dispatch<Action>]>([

@@ -5,10 +5,11 @@ import {
   NonSensitivePatientEntries,
   NewPatientEntry,
   NewEntry,
+  Entry,
 } from '../types';
 import { v1 as uuid } from 'uuid';
 
-const patientData: Array<PatientEntry> = data;
+let patientData: Array<PatientEntry> = data;
 
 const findPatient = (id: string): PatientEntry | unknown => {
   const patientFound = data.find((patient) => patient.id === id);
@@ -52,7 +53,7 @@ const getPatientEntries = (): Patient[] => {
   );
 };
 
-const addNewEntry = (id: string, entry: NewEntry): PatientEntry => {
+const addNewEntry = (id: string, entry: NewEntry): Entry => {
   const person = patientData.find((person) => person.id === id);
   if (person === undefined) {
     throw new Error('Person Not Found');
@@ -65,58 +66,64 @@ const addNewEntry = (id: string, entry: NewEntry): PatientEntry => {
   };
 
   let updatedPerson: PatientEntry;
-
+  let newEntry: Entry;
   switch (entry.type) {
     case 'Hospital':
+      newEntry = {
+        id: uuid(),
+        date: entry.date,
+        specialist: entry.specialist,
+        type: entry.type,
+        description: entry.description,
+        diagnosisCodes: entry.diagnosisCodes,
+        discharge: entry.discharge,
+      };
+
       updatedPerson = {
         ...person,
-        entries: [
-          ...person.entries,
-          {
-            id: uuid(),
-            date: entry.date,
-            specialist: entry.specialist,
-            type: entry.type,
-            description: entry.description,
-            discharge: entry.discharge,
-          },
-        ],
+        entries: [...person.entries, { ...newEntry }],
       };
-      return updatedPerson;
+
+      patientData = patientData.map((patient) =>
+        patient.id === id ? updatedPerson : patient
+      );
+      return newEntry;
       break;
     case 'HealthCheck':
+      newEntry = {
+        id: uuid(),
+        date: entry.date,
+        specialist: entry.specialist,
+        type: entry.type,
+        description: entry.description,
+        healthCheckRating: entry.healthCheckRating,
+      };
       updatedPerson = {
         ...person,
-        entries: [
-          ...person.entries,
-          {
-            id: uuid(),
-            date: entry.date,
-            specialist: entry.specialist,
-            type: entry.type,
-            description: entry.description,
-            healthCheckRating: entry.healthCheckRating,
-          },
-        ],
+        entries: [...person.entries, { ...newEntry }],
       };
-      return updatedPerson;
+      patientData = patientData.map((patient) =>
+        patient.id === id ? updatedPerson : patient
+      );
+      return newEntry;
       break;
     case 'OccupationalHealthcare':
+      newEntry = {
+        id: uuid(),
+        date: entry.date,
+        specialist: entry.specialist,
+        type: 'OccupationalHealthcare',
+        description: entry.description,
+        employerName: entry.employerName,
+      };
       updatedPerson = {
         ...person,
-        entries: [
-          ...person.entries,
-          {
-            id: uuid(),
-            date: entry.date,
-            specialist: entry.specialist,
-            type: 'OccupationalHealthcare',
-            description: entry.description,
-            employerName: entry.employerName,
-          },
-        ],
+        entries: [...person.entries, { ...newEntry }],
       };
-      return updatedPerson;
+      patientData = patientData.map((patient) =>
+        patient.id === id ? updatedPerson : patient
+      );
+      return newEntry;
       break;
     default:
       return assertNever(entry);

@@ -12,8 +12,8 @@ import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
 import EntryDetails from "../components/EntryDetails";
 import { Stack, Button } from "@mui/material";
 import AddEntryModal from "../AddEntryModal";
-import { EntryFormValues } from "../AddEntryModal/AddEntryForm";
-import { parseString } from "../utils";
+import { EntryFormValues } from "../types";
+import { assertNever, parseString } from "../utils";
 
 const PatientPage = () => {
   const paramId = useParams().id;
@@ -65,29 +65,69 @@ const PatientPage = () => {
   };
 
   const submitNewEntry = async (values: EntryFormValues) => {
-    const {
-      date,
-      description,
-      specialist,
-      discharge: { dischargeDate, criteria },
-      diagnosisCodes: code,
-    } = values;
-
+    let newEntry: NewEntry;
     if (!paramId) {
       throw new Error("User is not in Database");
     }
 
-    const newEntry: NewEntry = {
-      type: "Hospital",
-      date,
-      description,
-      specialist,
-      discharge: {
-        date: dischargeDate,
-        criteria,
-      },
-      diagnosesCodes: code,
-    };
+    switch (values.type) {
+      case "Hospital":
+        newEntry = {
+          type: "Hospital",
+          date: values.date,
+          description: values.description,
+          specialist: values.specialist,
+          discharge: {
+            date: values.dischargeDate,
+            criteria: values.dischargeCriteria,
+          },
+        };
+        if (!values.diagnosisCodes) {
+          newEntry = { ...newEntry };
+        } else {
+          newEntry = {
+            ...newEntry,
+            diagnosesCodes: values.diagnosisCodes,
+          };
+        }
+        break;
+      case "OccupationalHealthcare":
+        newEntry = {
+          type: "OccupationalHealthcare",
+          date: values.date,
+          description: values.description,
+          specialist: values.specialist,
+          employerName: values.employerName,
+        };
+        if (!values.diagnosisCodes) {
+          newEntry = { ...newEntry };
+        } else {
+          newEntry = {
+            ...newEntry,
+            diagnosesCodes: values.diagnosisCodes,
+          };
+        }
+        break;
+      case "HealthCheck":
+        newEntry = {
+          type: "HealthCheck",
+          date: values.date,
+          description: values.description,
+          specialist: values.specialist,
+          healthCheckRating: values.healthCheckRating,
+        };
+        if (!values.diagnosisCodes) {
+          newEntry = { ...newEntry };
+        } else {
+          newEntry = {
+            ...newEntry,
+            diagnosesCodes: values.diagnosisCodes,
+          };
+        }
+        break;
+      default:
+        return assertNever(values);
+    }
 
     try {
       const { data }: { data: Entry } = await axios.post(
@@ -144,11 +184,6 @@ const PatientPage = () => {
       {genderIconDecider}
     </IconContext.Provider>
   );
-
-  // Business Logic
-  // if (found.entries === undefined) {
-  //   throw new Error("No Entries Found");
-  // }
 
   const entries: Entry = found.entries[0];
   let codes: JSX.Element[] | [] = [];

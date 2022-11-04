@@ -5,9 +5,11 @@ import { TextField } from "../AddPatientModal/FormField";
 import { DiagnosisSelection } from "../AddPatientModal/FormField";
 import { useStateValue } from "../state";
 import { Diagnosis } from "../types";
+// import { EntryFormValues } from '../types';
 import { parseDate } from "../utils";
 
 export type EntryFormValues = {
+  type: "Hospital";
   date: string;
   description: string;
   specialist: string;
@@ -21,11 +23,12 @@ interface Props {
   onCancel: () => void;
 }
 
-const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
+const HospitalEntryForm = ({ onSubmit, onCancel }: Props) => {
   const [{ diagnoses }] = useStateValue();
   return (
     <Formik
       initialValues={{
+        type: "Hospital",
         date: "",
         description: "",
         specialist: "",
@@ -136,4 +139,4 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
   );
 };
 
-export default AddEntryForm;
+export default HospitalEntryForm;

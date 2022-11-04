@@ -35,16 +35,34 @@ export interface HealthCheckEntry extends BaseEntry {
   healthCheckRating: healthCheckRating;
 }
 
-export interface NewEntry {
-  type: "Hospital";
-  description: string;
+export type NewEntry =
+  | NewHospitalEntry
+  | NewOccupationalHealthcareEntry
+  | NewHealthCheckEntry;
+
+export interface NewBaseEntry {
   date: string;
+  description: string;
   specialist: string;
-  diagnosesCodes: Array<Diagnosis["code"]>;
+  diagnosesCodes?: Array<Diagnosis["code"]>;
+}
+
+interface NewHospitalEntry extends NewBaseEntry {
+  type: "Hospital";
   discharge: {
     date: string;
     criteria: string;
   };
+}
+
+interface NewOccupationalHealthcareEntry extends NewBaseEntry {
+  type: "OccupationalHealthcare";
+  employerName: string;
+}
+
+interface NewHealthCheckEntry extends NewBaseEntry {
+  type: "HealthCheck";
+  healthCheckRating: number;
 }
 
 export enum Gender {
@@ -56,7 +74,7 @@ export enum Gender {
 export enum healthCheckRating {
   "Healthy" = 0,
   "LowRisk" = 1,
-  "HighRick" = 2,
+  "HighRisk" = 2,
   "CriticalRisk" = 3,
 }
 
@@ -68,4 +86,32 @@ export interface Patient {
   ssn: string;
   dateOfBirth?: string;
   entries: Entry[];
+}
+
+export type EntryFormValues =
+  | HospitalFormValues
+  | OccupationalHealthcareFormValues
+  | HealthCheckFormValues;
+
+export interface BaseEntryFormValues {
+  date: string;
+  description: string;
+  specialist: string;
+  diagnosisCodes?: Array<Diagnosis["code"]>;
+}
+
+interface HospitalFormValues extends BaseEntryFormValues {
+  type: "Hospital";
+  dischargeDate: string;
+  dischargeCriteria: string;
+}
+
+interface OccupationalHealthcareFormValues extends BaseEntryFormValues {
+  type: "OccupationalHealthcare";
+  employerName: string;
+}
+
+interface HealthCheckFormValues extends BaseEntryFormValues {
+  type: "HealthCheck";
+  healthCheckRating: number;
 }

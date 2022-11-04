@@ -16,12 +16,16 @@ export type GenderOption = {
   value: Gender;
   label: string;
 };
+export interface HealthCheck {
+  value: number;
+  label: string;
+}
 
 // props for select field component
 type SelectFieldProps = {
   name: string;
   label: string;
-  options: GenderOption[];
+  options: GenderOption[] | HealthCheck[];
 };
 
 const FormikSelect = ({ field, ...props }: FieldProps) => (
@@ -35,6 +39,7 @@ export const SelectField = ({ name, label, options }: SelectFieldProps) => (
       fullWidth
       style={{ marginBottom: "0.5em" }}
       label={label}
+      value={options[0].value}
       component={FormikSelect}
       name={name}
     >

@@ -8,11 +8,11 @@ import { Diagnosis } from "../types";
 import { parseDate } from "../utils";
 
 export type EntryFormValues = {
+  type: "OccupationalHealthcare";
   date: string;
   description: string;
   specialist: string;
-  dischargeDate: string;
-  dischargeCriteria: string;
+  employerName: string;
   diagnosisCodes?: Array<Diagnosis["code"]>;
 };
 
@@ -21,16 +21,16 @@ interface Props {
   onCancel: () => void;
 }
 
-const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
+const HospitalEntryForm = ({ onSubmit, onCancel }: Props) => {
   const [{ diagnoses }] = useStateValue();
   return (
     <Formik
       initialValues={{
+        type: "OccupationalHealthcare",
         date: "",
         description: "",
         specialist: "",
-        dischargeDate: "",
-        dischargeCriteria: "",
+        employerName: "",
         diagnosisCodes: [],
       }}
       onSubmit={onSubmit}
@@ -49,14 +49,8 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
         if (!values.specialist) {
           errors.specialist = requiredError;
         }
-        if (!values.dischargeDate) {
-          errors.discharge = requiredError;
-        } else if (!parseDate(values.dischargeDate)) {
-          errors.dischargeDate =
-            "Malformatted date required format: YYYY-MM-DD";
-        }
-        if (!values.dischargeCriteria) {
-          errors.dischargeCriteria = requiredError;
+        if (!values.employerName) {
+          errors.employerName = requiredError;
         }
         if (!values.diagnosisCodes) {
           errors.diagnosisCodes = requiredError;
@@ -86,15 +80,9 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
               component={TextField}
             />
             <Field
-              label="dischargeDate"
-              placeholder="YYYY-MM-DD"
-              name="dischargeDate"
-              component={TextField}
-            />
-            <Field
-              label="criteria"
-              placeholder="criteria"
-              name="dischargeCriteria"
+              label="Employer Name"
+              placeholder="Name Of Employer"
+              name="employerName"
               component={TextField}
             />
             <DiagnosisSelection
@@ -136,4 +124,4 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
   );
 };
 
-export default AddEntryForm;
+export default HospitalEntryForm;

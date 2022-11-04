@@ -6,14 +6,15 @@ import { DiagnosisSelection } from "../AddPatientModal/FormField";
 import { useStateValue } from "../state";
 import { Diagnosis } from "../types";
 import { parseDate } from "../utils";
+import { SelectField } from "../AddPatientModal/FormField";
 
 export type EntryFormValues = {
+  type: "HealthCheck";
   date: string;
   description: string;
   specialist: string;
-  dischargeDate: string;
-  dischargeCriteria: string;
   diagnosisCodes?: Array<Diagnosis["code"]>;
+  healthCheckRating: number;
 };
 
 interface Props {
@@ -21,16 +22,16 @@ interface Props {
   onCancel: () => void;
 }
 
-const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
+const HospitalEntryForm = ({ onSubmit, onCancel }: Props) => {
   const [{ diagnoses }] = useStateValue();
   return (
     <Formik
       initialValues={{
+        type: "HealthCheck",
         date: "",
         description: "",
         specialist: "",
-        dischargeDate: "",
-        dischargeCriteria: "",
+        healthCheckRating: 0,
         diagnosisCodes: [],
       }}
       onSubmit={onSubmit}
@@ -49,14 +50,8 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
         if (!values.specialist) {
           errors.specialist = requiredError;
         }
-        if (!values.dischargeDate) {
-          errors.discharge = requiredError;
-        } else if (!parseDate(values.dischargeDate)) {
-          errors.dischargeDate =
-            "Malformatted date required format: YYYY-MM-DD";
-        }
-        if (!values.dischargeCriteria) {
-          errors.dischargeCriteria = requiredError;
+        if (!values.healthCheckRating) {
+          errors.healthCheckRating = requiredError;
         }
         if (!values.diagnosisCodes) {
           errors.diagnosisCodes = requiredError;
@@ -85,17 +80,15 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
               name="specialist"
               component={TextField}
             />
-            <Field
-              label="dischargeDate"
-              placeholder="YYYY-MM-DD"
-              name="dischargeDate"
-              component={TextField}
-            />
-            <Field
-              label="criteria"
-              placeholder="criteria"
-              name="dischargeCriteria"
-              component={TextField}
+            <SelectField
+              name="healthCheckRating"
+              label="Health Check Rating"
+              options={[
+                { value: 0, label: "Healthy" },
+                { value: 1, label: "Low Risk" },
+                { value: 2, label: "High Risk" },
+                { value: 3, label: "Critical Risk" },
+              ]}
             />
             <DiagnosisSelection
               setFieldValue={setFieldValue}
@@ -136,4 +129,4 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
   );
 };
 
-export default AddEntryForm;
+export default HospitalEntryForm;

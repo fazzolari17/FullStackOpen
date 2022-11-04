@@ -27,18 +27,15 @@ const parseSsn = (ssn: unknown): string => {
   return ssn;
 };
 
-const isDateOfBirth = (date: string): boolean => {
+const isDate = (date: string): boolean => {
   return Boolean(Date.parse(date));
 };
 
-const parseDateOfBirth = (
-  description: string,
-  dateOfBirth: unknown
-): string => {
-  if (!dateOfBirth || !isString(dateOfBirth) || !isDateOfBirth(dateOfBirth)) {
-    throw new Error(`Incorrect or missing ${description}: ${dateOfBirth}`);
+const parseDate = (description: string, date: unknown): string => {
+  if (!date || !isString(date) || !isDate(date)) {
+    throw new Error(`Incorrect or missing ${description}: ${date}`);
   }
-  return dateOfBirth;
+  return date;
 };
 
 const parseString = (description: string, text: unknown): string => {
@@ -70,7 +67,7 @@ const toNewPatientEntry = ({
 }: Fields): NewPatientEntry => {
   const newEntry: NewPatientEntry = {
     name: parseString('name', name),
-    dateOfBirth: parseDateOfBirth('Date of Birth', dateOfBirth),
+    dateOfBirth: parseDate('Date of Birth', dateOfBirth),
     ssn: parseSsn(ssn),
     occupation: parseOccupation(occupation),
     gender: parseGender(gender),
@@ -118,7 +115,6 @@ const parseHealthCheckRating = (healthCheckRating: unknown): number => {
 };
 
 const parseDiagnoses = (diagnoses: unknown): Array<Diagnoses['code']> => {
-  console.log('PARSE', diagnoses);
   const codes: Array<Diagnoses['code']> = [];
   if (!diagnoses) {
     throw new Error('Incorrect or missing diagnoses information');
@@ -139,6 +135,9 @@ const parseDiagnoses = (diagnoses: unknown): Array<Diagnoses['code']> => {
 
 const toNewEntry = (entry: EntryFields): NewEntry => {
   let newEntry: NewEntry;
+  const diagnoses = !entry.diagnosesCodes
+    ? []
+    : parseDiagnoses(entry.diagnosesCodes);
 
   const assertNever = (value: never): never => {
     throw new Error(
@@ -149,16 +148,13 @@ const toNewEntry = (entry: EntryFields): NewEntry => {
   switch (entry.type) {
     case 'Hospital':
       return {
-        date: parseDateOfBirth('Hospital Entry Date', entry.date),
+        date: parseDate('Hospital Entry Date', entry.date),
         type: 'Hospital',
         specialist: parseString('specialist', entry.specialist),
         description: parseString('description', entry.description),
-        diagnosisCodes: parseDiagnoses(entry.diagnosesCodes),
+        diagnosisCodes: diagnoses,
         discharge: {
-          date: parseDateOfBirth(
-            'Hospital Discharge date',
-            entry.discharge.date
-          ),
+          date: parseDate('Hospital Discharge date', entry.discharge.date),
           criteria: parseString('criteria', entry.discharge.criteria),
         },
       };
@@ -166,22 +162,22 @@ const toNewEntry = (entry: EntryFields): NewEntry => {
       break;
     case 'OccupationalHealthcare':
       newEntry = {
-        date: parseDateOfBirth('Occupational Date', entry.date),
+        date: parseDate('Occupational Date', entry.date),
         type: 'OccupationalHealthcare',
         specialist: parseString('specialist', entry.specialist),
         description: parseString('description', entry.description),
-        diagnosisCodes: parseDiagnoses(entry.diagnosesCodes),
+        diagnosisCodes: diagnoses,
         employerName: parseString('employer name', entry.employerName),
       };
       return newEntry;
       break;
     case 'HealthCheck':
       newEntry = {
-        date: parseDateOfBirth('HealthCheck Date', entry.date),
+        date: parseDate('HealthCheck Date', entry.date),
         type: 'HealthCheck',
         specialist: parseString('specialist', entry.specialist),
         description: parseString('description', entry.description),
-        diagnosisCodes: parseDiagnoses(entry.diagnosesCodes),
+        diagnosisCodes: diagnoses,
         healthCheckRating: parseHealthCheckRating(entry.healthCheckRating),
       };
       return newEntry;
